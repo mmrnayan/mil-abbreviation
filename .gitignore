@@ -1,0 +1,25 @@
+node_modules
+.next
+out
+coverage
+*.log
+*.tsbuildinfo
+.DS_Store
+.env*.local
+.consumer-build
+.tooling
+platforms/capacitor-mobile/android/local.properties
+platforms/capacitor-mobile/android/app/src/main/assets/public
+platforms/capacitor-mobile/ios/App/App/public
+platforms/electron-win/www
+platforms/electron-win/dist
+platforms/capacitor-mobile/www
+platforms/capacitor-mobile/android/.gradle
+platforms/capacitor-mobile/android/app/build
+platforms/capacitor-mobile/android/build
+platforms/capacitor-mobile/ios/App/Pods
+platforms/capacitor-mobile/ios/App/build
+
+# local tooling / runtime artifacts
+.mimosa/
+data/reports/

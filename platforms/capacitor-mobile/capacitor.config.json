@@ -1,0 +1,7 @@
+{
+  "appId": "bd.jssdm.abbreviationconverter",
+  "appName": "Abbreviation Converter",
+  "webDir": "www",
+  "android": { "allowMixedContent": false },
+  "ios": { "contentInset": "automatic" }
+}

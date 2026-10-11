@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --surface: 255 255 253;
+  --surface-muted: 247 243 232;
+  --ink: 32 39 37;
+  --ink-muted: 91 103 98;
+  --line: 221 226 220;
+}
+
+.dark {
+  color-scheme: dark;
+  --surface: 24 31 29;
+  --surface-muted: 18 25 23;
+  --ink: 237 241 237;
+  --ink-muted: 166 179 171;
+  --line: 55 68 63;
+}
+
+* { border-color: rgb(var(--line)); }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: rgb(var(--surface-muted));
+  color: rgb(var(--ink));
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+::selection { background: #d7b97d; color: #142f27; }
+
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold-400 ring-offset-2 ring-offset-white dark:ring-offset-charcoal;
+  }
+  button, a, input, textarea, select { @apply transition-colors duration-150; }
+  textarea { font-variant-ligatures: none; }
+}
+
+@layer components {
+  .page-shell { @apply mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8; }
+  .surface-card {
+    @apply rounded-2xl border bg-white shadow-institution dark:border-white/10 dark:bg-[#181f1d];
+  }
+  .eyebrow {
+    @apply text-[11px] font-bold uppercase tracking-[0.18em] text-forest-700 dark:text-gold-300;
+  }
+  .button-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-forest-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-forest-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gold-400 dark:text-forest-950 dark:hover:bg-gold-300;
+  }
+  .button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border bg-white px-3 py-2 text-sm font-semibold text-charcoal hover:border-forest-300 hover:bg-forest-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/15 dark:bg-white/5 dark:text-stone-100 dark:hover:bg-white/10;
+  }
+  .button-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-2.5 py-2 text-sm font-medium text-slate-600 hover:bg-forest-50 hover:text-forest-800 disabled:cursor-not-allowed disabled:opacity-50 dark:text-stone-300 dark:hover:bg-white/10 dark:hover:text-white;
+  }
+  .form-label { @apply mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-stone-300; }
+  .form-control {
+    @apply w-full rounded-xl border bg-white px-3 py-2.5 text-sm text-charcoal shadow-sm placeholder:text-slate-400 hover:border-forest-300 focus:border-forest-500 dark:border-white/15 dark:bg-white/5 dark:text-stone-100 dark:placeholder:text-stone-500;
+  }
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold;
+  }
+  .divider-label {
+    @apply flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-slate-500 before:h-px before:flex-1 before:bg-slate-200 after:h-px after:flex-1 after:bg-slate-200 dark:text-stone-400 dark:before:bg-white/10 dark:after:bg-white/10;
+  }
+}
+
+.text-balance { text-wrap: balance; }
+
+.highlight-auto {
+  border-bottom: 2px solid #2b7a56;
+  background: rgba(63, 153, 105, .14);
+  border-radius: .25rem;
+  padding: 0 .08rem;
+}
+.highlight-context {
+  border-bottom: 3px double #3478b8;
+  background: rgba(52, 120, 184, .13);
+  border-radius: .25rem;
+  padding: 0 .08rem;
+}
+.highlight-ambiguity {
+  border-bottom: 2px dashed #b7791f;
+  background: rgba(217, 158, 46, .17);
+  border-radius: .25rem;
+  padding: 0 .08rem;
+}
+.highlight-unknown {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: #c63f3f;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

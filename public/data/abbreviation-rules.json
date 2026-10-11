@@ -1,0 +1,2669 @@
+{
+  "layer": "language-rules",
+  "schema_version": "1.0.0",
+  "description": "Paragraph 0241 grammatical behavior. Root rules bind to authoritative entry IDs; examples are approved complete surface forms. Specific printed derivatives remain exact-form exceptions.",
+  "default_behaviour": {
+    "part_of_speech": "noun",
+    "allowed_rules": [
+      "noun_plural",
+      "compound_prefix",
+      "compound_suffix"
+    ],
+    "note": "Applies to every dictionary entry without an explicit rule below."
+  },
+  "global": {
+    "protected_words": [
+      "north",
+      "south",
+      "east",
+      "west"
+    ],
+    "irregular_forms": {
+      "spoke": "speak",
+      "spoken": "speak",
+      "withdrew": "withdraw",
+      "withdrawn": "withdraw",
+      "men": "man",
+      "women": "woman",
+      "children": "child",
+      "feet": "foot",
+      "teeth": "tooth",
+      "geese": "goose",
+      "mice": "mouse",
+      "memoranda": "memorandum"
+    },
+    "compound_affixes": {
+      "prefixes": [
+        "de",
+        "re",
+        "mis",
+        "pre",
+        "non",
+        "counter",
+        "semi",
+        "anti",
+        "over",
+        "under",
+        "out",
+        "sub",
+        "fore",
+        "post",
+        "co"
+      ],
+      "suffixes": [
+        "ship",
+        "ment",
+        "ness",
+        "less",
+        "ful",
+        "hood",
+        "able",
+        "ible",
+        "ance",
+        "ence"
+      ]
+    },
+    "compound_head_words": [
+      "mine",
+      "battle",
+      "air",
+      "sea",
+      "land",
+      "water",
+      "road",
+      "rail",
+      "fire",
+      "force",
+      "base",
+      "camp",
+      "wire",
+      "side",
+      "line",
+      "point",
+      "head",
+      "house",
+      "work",
+      "gun",
+      "bomb",
+      "man",
+      "foot",
+      "hand",
+      "mark",
+      "smoke",
+      "war",
+      "boat",
+      "ship",
+      "yard",
+      "bridge",
+      "hill",
+      "wood",
+      "gas",
+      "path",
+      "light",
+      "room",
+      "wall",
+      "storm",
+      "field"
+    ],
+    "document_policies": {
+      "source": "ABBREVIATIONS AND SYMBOLS.docx; Paragraph 0241 and Section 1610",
+      "restricted_contexts": [
+        "formal-letter",
+        "demi-official-letter",
+        "commanded-letter",
+        "service-paper"
+      ],
+      "external_contexts": [
+        "civilian-external-correspondence",
+        "allied-forces-correspondence",
+        "foreign-correspondence"
+      ],
+      "allowed_exception_entry_ids": [
+        "abbr-0237",
+        "abbr-0238",
+        "abbr-0239",
+        "abbr-2634"
+      ],
+      "allowed_exception_subcategories": [
+        "decoration",
+        "qualification",
+        "branch",
+        "regiment",
+        "corps"
+      ],
+      "address_box_suppressed_entry_ids": [
+        "abbr-1777",
+        "abbr-1778",
+        "abbr-1779",
+        "abbr-1780",
+        "abbr-1781"
+      ],
+      "qualification_abbreviations": [
+        "afwc",
+        "awc",
+        "ndc",
+        "ndu",
+        "rcds",
+        "psc",
+        "te",
+        "hdmc"
+      ],
+      "decoration_abbreviations": [
+        "SGP",
+        "SPP",
+        "BPP",
+        "OSP",
+        "SUP"
+      ],
+      "operational_headings": "full text",
+      "air_force_operational_papers": "service air-force required",
+      "personnel_line": "authorized leading rank; initials without full stops; suffixes separated by commas",
+      "departmental_titles": "ampersand for and",
+      "consistent_abbreviations": "same approved form within each conversion"
+    },
+    "engine_config": {
+      "supported_directions": [
+        "full_form_to_abbreviation",
+        "abbreviation_to_full_form"
+      ],
+      "default_direction": "full_form_to_abbreviation",
+      "replacement_order": "longest_phrase_first",
+      "tokenization": {
+        "preserve_whitespace": true,
+        "preserve_punctuation": true,
+        "whole_phrase_only": true,
+        "case_insensitive_full_form_matching": true,
+        "do_not_match_inside_words": true,
+        "protect_existing_abbreviations": true,
+        "match_entry_fields": [
+          "match_variants"
+        ],
+        "source_notation_expansion": "Parenthetical endings and slash-delimited alternatives are normalized into match_variants before indexing."
+      },
+      "morphology": {
+        "policy": "controlled_authorized_roots",
+        "rule": "Apply declared examples and controlled grammatical rules only to authorized dictionary roots, respecting exact-form exceptions and complete word boundaries. Paragraph 0241 authorizes verb derivatives and composed forms; specific published exceptions take precedence.",
+        "example": {
+          "entry": "Inform(ation)",
+          "matches": [
+            "Inform",
+            "Informs",
+            "Informed",
+            "Informing",
+            "Information"
+          ],
+          "output": "info"
+        }
+      },
+      "conversion_pipeline": [
+        {
+          "step": 1,
+          "operation": "normalize",
+          "loop": "for_each_character",
+          "rule": "Normalize Unicode apostrophes and repeated spaces while retaining original punctuation offsets."
+        },
+        {
+          "step": 2,
+          "operation": "protect",
+          "loop": "for_each_entry",
+          "rule": "Temporarily mask already-valid abbreviations and protected spans such as URLs, email addresses, decimals and date/time groups."
+        },
+        {
+          "step": 3,
+          "operation": "scan",
+          "loop": "while_cursor_before_end",
+          "rule": "At each cursor position test every authorized match_variants value for enabled entries in longest-phrase-first order."
+        },
+        {
+          "step": 4,
+          "operation": "replace",
+          "loop": "for_each_match",
+          "rule": "Replace only complete phrases at word boundaries; retain adjacent punctuation and possessive endings."
+        },
+        {
+          "step": 5,
+          "operation": "resolve_collision",
+          "loop": "for_each_ambiguous_match",
+          "rule": "Forward conversion uses the exact full phrase. Reverse conversion must use selected service/category/context or ask the user; never guess."
+        },
+        {
+          "step": 6,
+          "operation": "apply_context_templates",
+          "loop": "for_each_context_rule",
+          "rule": "Apply acting/assistant/deputy/officiating/vice and national-force formatting rules after phrase replacement."
+        },
+        {
+          "step": 7,
+          "operation": "restore",
+          "loop": "for_each_protected_span",
+          "rule": "Restore protected spans and original punctuation."
+        },
+        {
+          "step": 8,
+          "operation": "report",
+          "loop": "for_each_unresolved_candidate",
+          "rule": "Return unresolved or ambiguous terms separately for review."
+        }
+      ],
+      "context_rules": [
+        {
+          "id": "appointment-assistant",
+          "trigger": "Assistant + authorized appointment",
+          "action": "Use prefix A where authorized",
+          "example": {
+            "input": "Assistant Military Secretary",
+            "output": "AMS"
+          }
+        },
+        {
+          "id": "appointment-acting",
+          "trigger": "Acting + authorized appointment",
+          "action": "Use prefix A/",
+          "example": {
+            "input": "Acting Military Secretary",
+            "output": "A/MS"
+          }
+        },
+        {
+          "id": "appointment-deputy",
+          "trigger": "Deputy + authorized appointment",
+          "action": "Use prefix D; use Dy where D could be confused",
+          "example": {
+            "input": "Deputy Military Secretary",
+            "output": "Dy MS"
+          }
+        },
+        {
+          "id": "appointment-deputy-assistant",
+          "trigger": "Deputy Assistant + authorized appointment",
+          "action": "Use prefix DA",
+          "example": {
+            "input": "Deputy Assistant Director of Ordnance Services",
+            "output": "DADOS"
+          }
+        },
+        {
+          "id": "appointment-officiating",
+          "trigger": "Officiating + authorized appointment",
+          "action": "Use prefix Offg",
+          "example": {
+            "input": "Officiating Commanding Officer",
+            "output": "Offg CO"
+          }
+        },
+        {
+          "id": "appointment-vice",
+          "trigger": "Vice + authorized appointment",
+          "action": "Use V in the authorized title",
+          "example": {
+            "input": "Vice Admiral",
+            "output": "V Adm"
+          }
+        },
+        {
+          "id": "national-force",
+          "trigger": "national force/formation/unit",
+          "action": "Put the national distinguishing letters in parentheses immediately after the force, formation or unit number",
+          "example": {
+            "input": "6th United States Fleet",
+            "output": "6th (US) Fleet"
+          }
+        },
+        {
+          "id": "small-army-element",
+          "trigger": "army element smaller than a division",
+          "action": "Add national letters only when needed to avoid confusion"
+        },
+        {
+          "id": "military-qualification",
+          "trigger": "qualification letters referring to the qualification rather than the institution",
+          "action": "Use lower-case qualification form where prescribed",
+          "examples": [
+            "afwc",
+            "awc",
+            "ndc",
+            "ndu",
+            "rcds",
+            "psc",
+            "te"
+          ]
+        },
+        {
+          "id": "signal-message-exclusion",
+          "trigger": "signal-message-only abbreviation",
+          "action": "Exclude from the general converter unless signal-message mode is explicitly enabled",
+          "examples": [
+            "CLN",
+            "QUES",
+            "PAREN"
+          ]
+        }
+      ],
+      "scope_rules": [
+        "Prefer clarity over brevity; do not convert when the result would be unclear.",
+        "Do not automatically use Service abbreviations for foreign, non-service or civilian addressees.",
+        "Where one abbreviation has multiple meanings, forward conversion is allowed only from an exact full phrase; reverse conversion requires context or user selection.",
+        "Keep standard English abbreviations such as e.g., i.e., etc., am, pm, RSVP, SOS, BA, BSc, Mr. and Mrs. unchanged unless a dedicated style mode says otherwise.",
+        "Units of measurement belong to the separate Section 2 list and are outside this dataset."
+      ],
+      "reverse_conversion": {
+        "default_ambiguous_action": "return_choices",
+        "service_filter_precedence": [
+          "selected_service",
+          "selected_annex",
+          "surrounding_terms",
+          "user_selection"
+        ],
+        "never_expand_inside_word": true
+      }
+    }
+  },
+  "rules": [
+    {
+      "root": "abbreviate",
+      "abbreviation": "abbr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "abbreviate": "abbr",
+        "abbreviates": "abbr",
+        "abbreviated": "abbr",
+        "abbreviating": "abbr"
+      },
+      "entry_id": "abbr-0001",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "acknowledge",
+      "abbreviation": "ack",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "acknowledge": "ack",
+        "acknowledges": "ack",
+        "acknowledged": "ack",
+        "acknowledging": "ack"
+      },
+      "entry_id": "abbr-0009",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "allocate",
+      "abbreviation": "alloc",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "allocate": "alloc",
+        "allocates": "alloc",
+        "allocated": "alloc",
+        "allocating": "alloc"
+      },
+      "entry_id": "abbr-0075",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "appoint",
+      "abbreviation": "appt",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "appoint": "appt",
+        "appoints": "appt",
+        "appointed": "appt",
+        "appointing": "appt"
+      },
+      "entry_id": "abbr-0111",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "appreciate",
+      "abbreviation": "aprc",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "appreciate": "aprc",
+        "appreciates": "aprc",
+        "appreciated": "aprc",
+        "appreciating": "aprc"
+      },
+      "entry_id": "abbr-0112",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "approach",
+      "abbreviation": "app",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "approach": "app",
+        "approaches": "app",
+        "approached": "app",
+        "approaching": "app"
+      },
+      "entry_id": "abbr-0113",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "approximate",
+      "abbreviation": "approx",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "approximate": "approx",
+        "approximates": "approx",
+        "approximated": "approx",
+        "approximating": "approx"
+      },
+      "entry_id": "abbr-0115",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "arrange",
+      "abbreviation": "arng",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "arrange": "arng",
+        "arranges": "arng",
+        "arranged": "arng",
+        "arranging": "arng",
+        "arrangement": "arng",
+        "arrangements": "arng"
+      },
+      "entry_id": "abbr-0149",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "arrive",
+      "abbreviation": "arr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "arrive": "arr",
+        "arrives": "arr",
+        "arrived": "arr",
+        "arriving": "arr"
+      },
+      "entry_id": "abbr-0150",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "assign",
+      "abbreviation": "asg",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "assign": "asg",
+        "assigns": "asg",
+        "assigned": "asg",
+        "assigning": "asg"
+      },
+      "entry_id": "abbr-0160",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "assist",
+      "abbreviation": "asst",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "assist": "asst",
+        "assists": "asst",
+        "assisted": "asst",
+        "assisting": "asst"
+      },
+      "entry_id": "abbr-0161",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "attach",
+      "abbreviation": "att",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "attach": "att",
+        "attaches": "att",
+        "attached": "att",
+        "attaching": "att"
+      },
+      "entry_id": "abbr-0165",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "attack",
+      "abbreviation": "attk",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "attack": "attk",
+        "attacks": "attk",
+        "attacked": "attk",
+        "attacking": "attk"
+      },
+      "entry_id": "abbr-0166",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "attend",
+      "abbreviation": "atnd",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "attend": "atnd",
+        "attends": "atnd",
+        "attended": "atnd",
+        "attending": "atnd"
+      },
+      "entry_id": "abbr-0167",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "authenticate",
+      "abbreviation": "authen",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "authenticate": "authen",
+        "authenticates": "authen",
+        "authenticated": "authen",
+        "authenticating": "authen"
+      },
+      "entry_id": "abbr-0169",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "authorize",
+      "abbreviation": "auth",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "authorize": "auth",
+        "authorizes": "auth",
+        "authorized": "auth",
+        "authorizing": "auth"
+      },
+      "entry_id": "abbr-0173",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "backload",
+      "abbreviation": "bkld",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "backload": "bkld",
+        "backloads": "bkld",
+        "backloaded": "bkld",
+        "backloading": "bkld"
+      },
+      "entry_id": "abbr-0187",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "calculate",
+      "abbreviation": "cal",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "calculate": "cal",
+        "calculates": "cal",
+        "calculated": "cal",
+        "calculating": "cal"
+      },
+      "entry_id": "abbr-0262",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "calibrate",
+      "abbreviation": "calb",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "calibrate": "calb",
+        "calibrates": "calb",
+        "calibrated": "calb",
+        "calibrating": "calb"
+      },
+      "entry_id": "abbr-0263",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "camouflage",
+      "abbreviation": "cam",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "camouflage": "cam",
+        "camouflages": "cam",
+        "camouflaged": "cam",
+        "camouflaging": "cam"
+      },
+      "entry_id": "abbr-0264",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "canalize",
+      "abbreviation": "cnz",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "canalize": "cnz",
+        "canalizes": "cnz",
+        "canalized": "cnz",
+        "canalizing": "cnz"
+      },
+      "entry_id": "abbr-0266",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "capture",
+      "abbreviation": "capr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "capture": "capr",
+        "captures": "capr",
+        "captured": "capr",
+        "capturing": "capr"
+      },
+      "entry_id": "abbr-0271",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "carry",
+      "abbreviation": "carr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "carry": "carr",
+        "carries": "carr",
+        "carried": "carr",
+        "carrying": "carr"
+      },
+      "entry_id": "abbr-0275",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "check",
+      "abbreviation": "chk",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "check": "chk",
+        "checks": "chk",
+        "checked": "chk",
+        "checking": "chk"
+      },
+      "entry_id": "abbr-0297",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "combine",
+      "abbreviation": "comb",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "combine": "comb",
+        "combines": "comb",
+        "combined": "comb",
+        "combining": "comb"
+      },
+      "entry_id": "abbr-0327",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "concentrate",
+      "abbreviation": "conc",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "concentrate": "conc",
+        "concentrates": "conc",
+        "concentrated": "conc",
+        "concentrating": "conc"
+      },
+      "entry_id": "abbr-0364",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "conclude",
+      "abbreviation": "concl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "plural_invariant",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "conclude": "concl",
+        "concludes": "concl",
+        "concluded": "concl",
+        "concluding": "concl"
+      },
+      "entry_id": "abbr-0366",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "confirm",
+      "abbreviation": "cfm",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "confirm": "cfm",
+        "confirms": "cfm",
+        "confirmed": "cfm",
+        "confirming": "cfm"
+      },
+      "entry_id": "abbr-0370",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "construct",
+      "abbreviation": "constr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "construct": "constr",
+        "constructs": "constr",
+        "constructed": "constr",
+        "constructing": "constr"
+      },
+      "entry_id": "abbr-0372",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "continue",
+      "abbreviation": "cont",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "continue": "cont",
+        "continues": "cont",
+        "continued": "cont",
+        "continuing": "cont"
+      },
+      "entry_id": "abbr-0375",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "control",
+      "abbreviation": "ctrl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "control": "ctrl",
+        "controls": "ctrl",
+        "controlled": "ctrl",
+        "controlling": "ctrl"
+      },
+      "entry_id": "abbr-0376",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "convalesce",
+      "abbreviation": "convl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "convalesce": "convl",
+        "convalesces": "convl",
+        "convalesced": "convl",
+        "convalescing": "convl"
+      },
+      "entry_id": "abbr-0379",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "cook",
+      "abbreviation": "ck",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "cook": "ck",
+        "cooks": "ck",
+        "cooked": "ck",
+        "cooking": "ck"
+      },
+      "entry_id": "abbr-0387",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "coordinate",
+      "abbreviation": "coord",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "coordinate": "coord",
+        "coordinates": "coord",
+        "coordinated": "coord",
+        "coordinating": "coord"
+      },
+      "entry_id": "abbr-0389",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "decontaminate",
+      "abbreviation": "decon",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "decontaminate": "decon",
+        "decontaminates": "decon",
+        "decontaminated": "decon",
+        "decontaminating": "decon"
+      },
+      "entry_id": "abbr-0424",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "demolish",
+      "abbreviation": "dml",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "demolish": "dml",
+        "demolishes": "dml",
+        "demolished": "dml",
+        "demolishing": "dml"
+      },
+      "entry_id": "abbr-0437",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "demonstrate",
+      "abbreviation": "demo",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "demonstrate": "demo",
+        "demonstrates": "demo",
+        "demonstrated": "demo",
+        "demonstrating": "demo"
+      },
+      "entry_id": "abbr-0438",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "deploy",
+      "abbreviation": "depl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "deploy": "depl",
+        "deploys": "depl",
+        "deployed": "depl",
+        "deploying": "depl",
+        "deployment": "depl",
+        "deployments": "depl"
+      },
+      "entry_id": "abbr-0440",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "designate",
+      "abbreviation": "des",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "plural_invariant",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "designate": "des",
+        "designates": "des",
+        "designated": "des",
+        "designating": "des"
+      },
+      "entry_id": "abbr-0442",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "detach",
+      "abbreviation": "det",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "detach": "det",
+        "detaches": "det",
+        "detached": "det",
+        "detaching": "det"
+      },
+      "entry_id": "abbr-0445",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "develop",
+      "abbreviation": "dev",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "develop": "dev",
+        "develops": "dev",
+        "developed": "dev",
+        "developing": "dev"
+      },
+      "entry_id": "abbr-0447",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "direct",
+      "abbreviation": "dir",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "direct": "dir",
+        "directs": "dir",
+        "directed": "dir",
+        "directing": "dir"
+      },
+      "entry_id": "abbr-0451",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "divide",
+      "abbreviation": "div",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "divide": "div",
+        "divides": "div",
+        "divided": "div",
+        "dividing": "div"
+      },
+      "entry_id": "abbr-0473",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "embark",
+      "abbreviation": "emb",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "embark": "emb",
+        "embarks": "emb",
+        "embarked": "emb",
+        "embarking": "emb"
+      },
+      "entry_id": "abbr-0509",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "emplace",
+      "abbreviation": "empl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "emplace": "empl",
+        "emplaces": "empl",
+        "emplaced": "empl",
+        "emplacing": "empl"
+      },
+      "entry_id": "abbr-0512",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "employ",
+      "abbreviation": "emp",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "employ": "emp",
+        "employs": "emp",
+        "employed": "emp",
+        "employing": "emp"
+      },
+      "entry_id": "abbr-0513",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "enclose",
+      "abbreviation": "encl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "enclose": "encl",
+        "encloses": "encl",
+        "enclosed": "encl",
+        "enclosing": "encl"
+      },
+      "entry_id": "abbr-0514",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "establish",
+      "abbreviation": "estb",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "establish": "estb",
+        "establishes": "estb",
+        "established": "estb",
+        "establishing": "estb"
+      },
+      "entry_id": "abbr-0532",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "estimate",
+      "abbreviation": "est",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "estimate": "est",
+        "estimates": "est",
+        "estimated": "est",
+        "estimating": "est"
+      },
+      "entry_id": "abbr-0533",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "evacuate",
+      "abbreviation": "evac",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "evacuate": "evac",
+        "evacuates": "evac",
+        "evacuated": "evac",
+        "evacuating": "evac"
+      },
+      "entry_id": "abbr-0534",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "evaluate",
+      "abbreviation": "eval",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "evaluate": "eval",
+        "evaluates": "eval",
+        "evaluated": "eval",
+        "evaluating": "eval"
+      },
+      "entry_id": "abbr-0535",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "examine",
+      "abbreviation": "exam",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "examine": "exam",
+        "examines": "exam",
+        "examined": "exam",
+        "examining": "exam"
+      },
+      "entry_id": "abbr-0537",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "exchange",
+      "abbreviation": "exch",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "exchange": "exch",
+        "exchanges": "exch",
+        "exchanged": "exch",
+        "exchanging": "exch"
+      },
+      "entry_id": "abbr-0538",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "exclude",
+      "abbreviation": "excl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "exclude": "excl",
+        "excludes": "excl",
+        "excluded": "excl",
+        "excluding": "excl"
+      },
+      "entry_id": "abbr-0540",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "execute",
+      "abbreviation": "exec",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "execute": "exec",
+        "executes": "exec",
+        "executed": "exec",
+        "executing": "exec"
+      },
+      "entry_id": "abbr-0542",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "exercise",
+      "abbreviation": "ex",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "exercise": "ex",
+        "exercises": "ex",
+        "exercised": "ex",
+        "exercising": "ex"
+      },
+      "entry_id": "abbr-0544",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "expedite",
+      "abbreviation": "xpd",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "expedite": "xpd",
+        "expedites": "xpd",
+        "expedited": "xpd",
+        "expediting": "xpd"
+      },
+      "entry_id": "abbr-0546",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "finance",
+      "abbreviation": "fin",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "finance": "fin",
+        "finances": "fin",
+        "financed": "fin",
+        "financing": "fin"
+      },
+      "entry_id": "abbr-0585",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "follow",
+      "abbreviation": "fol",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "follow": "fol",
+        "follows": "fol",
+        "followed": "fol",
+        "following": "fol"
+      },
+      "entry_id": "abbr-0613",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "generalize",
+      "abbreviation": "gen",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "generalize": "gen",
+        "generalizes": "gen",
+        "generalized": "gen",
+        "generalizing": "gen"
+      },
+      "entry_id": "abbr-0658",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "group",
+      "abbreviation": "gp",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "group": "gp",
+        "groups": "gp",
+        "grouped": "gp",
+        "grouping": "gp"
+      },
+      "entry_id": "abbr-0674",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "guard",
+      "abbreviation": "gd",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "guard": "gd",
+        "guards": "gd",
+        "guarded": "gd",
+        "guarding": "gd"
+      },
+      "entry_id": "abbr-0677",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "identify",
+      "abbreviation": "ident",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "identify": "ident",
+        "identifies": "ident",
+        "identified": "ident",
+        "identifying": "ident"
+      },
+      "entry_id": "abbr-0720",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "illuminate",
+      "abbreviation": "illum",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "illuminate": "illum",
+        "illuminates": "illum",
+        "illuminated": "illum",
+        "illuminating": "illum"
+      },
+      "entry_id": "abbr-0722",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "improve",
+      "abbreviation": "impv",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "improve": "impv",
+        "improves": "impv",
+        "improved": "impv",
+        "improving": "impv"
+      },
+      "entry_id": "abbr-0726",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "include",
+      "abbreviation": "incl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "include": "incl",
+        "includes": "incl",
+        "included": "incl",
+        "including": "incl"
+      },
+      "entry_id": "abbr-0731",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "incorporate",
+      "abbreviation": "incorp",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "incorporate": "incorp",
+        "incorporates": "incorp",
+        "incorporated": "incorp",
+        "incorporating": "incorp"
+      },
+      "entry_id": "abbr-0732",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "inform",
+      "abbreviation": "info",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "inform": "info",
+        "informs": "info",
+        "informed": "info",
+        "informing": "info"
+      },
+      "entry_id": "abbr-0743",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "install",
+      "abbreviation": "instl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "install": "instl",
+        "installs": "instl",
+        "installed": "instl",
+        "installing": "instl"
+      },
+      "entry_id": "abbr-0749",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "instruct",
+      "abbreviation": "instr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "instruct": "instr",
+        "instructs": "instr",
+        "instructed": "instr",
+        "instructing": "instr"
+      },
+      "entry_id": "abbr-0750",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "interrogate",
+      "abbreviation": "intg",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "interrogate": "intg",
+        "interrogates": "intg",
+        "interrogated": "intg",
+        "interrogating": "intg"
+      },
+      "entry_id": "abbr-0778",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "introduce",
+      "abbreviation": "intro",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "introduce": "intro",
+        "introduces": "intro",
+        "introduced": "intro",
+        "introducing": "intro"
+      },
+      "entry_id": "abbr-0779",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "maintain",
+      "abbreviation": "maint",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "maintain": "maint",
+        "maintains": "maint",
+        "maintained": "maint",
+        "maintaining": "maint"
+      },
+      "entry_id": "abbr-0896",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "manage",
+      "abbreviation": "mng",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "manage": "mng",
+        "manages": "mng",
+        "managed": "mng",
+        "managing": "mng"
+      },
+      "entry_id": "abbr-0902",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "manoeuver",
+      "abbreviation": "mnvr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "manoeuver": "mnvr",
+        "manoeuvers": "mnvr",
+        "manoeuvered": "mnvr",
+        "manoeuvering": "mnvr"
+      },
+      "entry_id": "abbr-0905",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "mark",
+      "abbreviation": "mk",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "mark": "mk",
+        "marks": "mk",
+        "marked": "mk",
+        "marking": "mk"
+      },
+      "entry_id": "abbr-0919",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "mechanize",
+      "abbreviation": "mech",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "mechanize": "mech",
+        "mechanizes": "mech",
+        "mechanized": "mech",
+        "mechanizing": "mech"
+      },
+      "entry_id": "abbr-0930",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "mount",
+      "abbreviation": "mt",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "mount": "mt",
+        "mounts": "mt",
+        "mounted": "mt",
+        "mounting": "mt"
+      },
+      "entry_id": "abbr-0975",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "move",
+      "abbreviation": "mov",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "move": "mov",
+        "moves": "mov",
+        "moved": "mov",
+        "moving": "mov"
+      },
+      "entry_id": "abbr-0978",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "navigate",
+      "abbreviation": "nav",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "navigate": "nav",
+        "navigates": "nav",
+        "navigated": "nav",
+        "navigating": "nav"
+      },
+      "entry_id": "abbr-1001",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "organize",
+      "abbreviation": "org",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "organize": "org",
+        "organizes": "org",
+        "organized": "org",
+        "organizing": "org"
+      },
+      "entry_id": "abbr-1060",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "patrol",
+      "abbreviation": "ptl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "patrol": "ptl",
+        "patrols": "ptl",
+        "patrolled": "ptl",
+        "patrolling": "ptl"
+      },
+      "entry_id": "abbr-1077",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "penetrate",
+      "abbreviation": "pen",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "penetrate": "pen",
+        "penetrates": "pen",
+        "penetrated": "pen",
+        "penetrating": "pen"
+      },
+      "entry_id": "abbr-1082",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "populate",
+      "abbreviation": "pop",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "populate": "pop",
+        "populates": "pop",
+        "populated": "pop",
+        "populating": "pop"
+      },
+      "entry_id": "abbr-1109",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "prepare",
+      "abbreviation": "prep",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "prepare": "prep",
+        "prepares": "prep",
+        "prepared": "prep",
+        "preparing": "prep"
+      },
+      "entry_id": "abbr-1121",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "procure",
+      "abbreviation": "proc",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "procure": "proc",
+        "procures": "proc",
+        "procured": "proc",
+        "procuring": "proc"
+      },
+      "entry_id": "abbr-1133",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "propel",
+      "abbreviation": "prop",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "propel": "prop",
+        "propels": "prop",
+        "propelled": "prop",
+        "propelling": "prop"
+      },
+      "entry_id": "abbr-1136",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "recognize",
+      "abbreviation": "recog",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "recognize": "recog",
+        "recognizes": "recog",
+        "recognized": "recog",
+        "recognizing": "recog"
+      },
+      "entry_id": "abbr-1183",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "recruit",
+      "abbreviation": "rect",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "recruit": "rect",
+        "recruits": "rect",
+        "recruited": "rect",
+        "recruiting": "rect"
+      },
+      "entry_id": "abbr-1190",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "regulate",
+      "abbreviation": "reg",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "regulate": "reg",
+        "regulates": "reg",
+        "regulated": "reg",
+        "regulating": "reg"
+      },
+      "entry_id": "abbr-1197",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "rehabilitate",
+      "abbreviation": "rehab",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "rehabilitate": "rehab",
+        "rehabilitates": "rehab",
+        "rehabilitated": "rehab",
+        "rehabilitating": "rehab"
+      },
+      "entry_id": "abbr-1198",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "replenish",
+      "abbreviation": "replen",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "replenish": "replen",
+        "replenishes": "replen",
+        "replenished": "replen",
+        "replenishing": "replen"
+      },
+      "entry_id": "abbr-1207",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "represent",
+      "abbreviation": "rep",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "represent": "rep",
+        "represents": "rep",
+        "represented": "rep",
+        "representing": "rep"
+      },
+      "entry_id": "abbr-1208",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "request",
+      "abbreviation": "req",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "request": "req",
+        "requests": "req",
+        "requested": "req",
+        "requesting": "req"
+      },
+      "entry_id": "abbr-1209",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "require",
+      "abbreviation": "reqr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "require": "reqr",
+        "requires": "reqr",
+        "required": "reqr",
+        "requiring": "reqr"
+      },
+      "entry_id": "abbr-1210",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "speak",
+      "abbreviation": "spk",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "speak": "spk",
+        "speaks": "spk",
+        "spoke": "spk",
+        "spoken": "spk",
+        "speaking": "spk"
+      },
+      "entry_id": "abbr-1300",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "specialize",
+      "abbreviation": "spl",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "specialize": "spl",
+        "specializes": "spl",
+        "specialized": "spl",
+        "specializing": "spl"
+      },
+      "entry_id": "abbr-1309",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "specify",
+      "abbreviation": "spec",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "specify": "spec",
+        "specifies": "spec",
+        "specified": "spec",
+        "specifying": "spec"
+      },
+      "entry_id": "abbr-1310",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "standardize",
+      "abbreviation": "std",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "standardize": "std",
+        "standardizes": "std",
+        "standardized": "std",
+        "standardizing": "std"
+      },
+      "entry_id": "abbr-1318",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "station",
+      "abbreviation": "sta",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "station": "sta",
+        "stations": "sta",
+        "stationed": "sta",
+        "stationing": "sta"
+      },
+      "entry_id": "abbr-1321",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "supply",
+      "abbreviation": "sup",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "supply": "sup",
+        "supplies": "sup",
+        "supplied": "sup",
+        "supplying": "sup"
+      },
+      "entry_id": "abbr-1350",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "support",
+      "abbreviation": "sp",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "support": "sp",
+        "supports": "sp",
+        "supported": "sp",
+        "supporting": "sp",
+        "supporter": "sp",
+        "supporters": "sp",
+        "supportive": "sp"
+      },
+      "entry_id": "abbr-1355",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "survey",
+      "abbreviation": "svy",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "survey": "svy",
+        "surveys": "svy",
+        "surveyed": "svy",
+        "surveying": "svy"
+      },
+      "entry_id": "abbr-1370",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "switch",
+      "abbreviation": "sw",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "switch": "sw",
+        "switches": "sw",
+        "switched": "sw",
+        "switching": "sw"
+      },
+      "entry_id": "abbr-1372",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "synchronize",
+      "abbreviation": "sync",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "synchronize": "sync",
+        "synchronizes": "sync",
+        "synchronized": "sync",
+        "synchronizing": "sync"
+      },
+      "entry_id": "abbr-1375",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "utilize",
+      "abbreviation": "ut",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "utilize": "ut",
+        "utilizes": "ut",
+        "utilized": "ut",
+        "utilizing": "ut"
+      },
+      "entry_id": "abbr-1466",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "withdraw",
+      "abbreviation": "wdr",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "withdraw": "wdr",
+        "withdraws": "wdr",
+        "withdrew": "wdr",
+        "withdrawn": "wdr",
+        "withdrawing": "wdr"
+      },
+      "entry_id": "abbr-1533",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "divide",
+      "abbreviation": "div",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "divide": "div",
+        "divides": "div",
+        "divided": "div",
+        "dividing": "div"
+      },
+      "entry_id": "abbr-1604",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "mobilize",
+      "abbreviation": "mob",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "mobilize": "mob",
+        "mobilizes": "mob",
+        "mobilized": "mob",
+        "mobilizing": "mob"
+      },
+      "entry_id": "abbr-1678",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "mount",
+      "abbreviation": "mt",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "mount": "mt",
+        "mounts": "mt",
+        "mounted": "mt",
+        "mounting": "mt"
+      },
+      "entry_id": "abbr-1683",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "recruit",
+      "abbreviation": "Rect",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "noun_plural"
+      ],
+      "examples": {
+        "recruit": "Rect",
+        "recruits": "Rects"
+      },
+      "entry_id": "abbr-1776",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "answer",
+      "abbreviation": "ans",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "answer": "ans",
+        "answers": "ans",
+        "answered": "ans",
+        "answering": "ans"
+      },
+      "entry_id": "abbr-0092",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "article in use",
+      "abbreviation": "A in U",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "article in use": "A in U",
+        "articles in use": "A in U"
+      },
+      "entry_id": "abbr-0151",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "critical event",
+      "abbreviation": "CE",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "critical event": "CE",
+        "critical events": "CE"
+      },
+      "entry_id": "abbr-0403",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "fly-away pack",
+      "abbreviation": "FAPs",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "fly-away pack": "FAPs",
+        "fly-away packs": "FAPs"
+      },
+      "entry_id": "abbr-0610",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "line of communication",
+      "abbreviation": "L of C",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "line of communication": "L of C",
+        "lines of communication": "L of C"
+      },
+      "entry_id": "abbr-0853",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "logistics",
+      "abbreviation": "log",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "logistics": "log",
+        "logistic": "log",
+        "logistical": "log"
+      },
+      "entry_id": "abbr-0869",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "memorandum of understanding",
+      "abbreviation": "MOU",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "memorandum of understanding": "MOU",
+        "memorandums of understanding": "MOU",
+        "memoranda of understanding": "MOU"
+      },
+      "entry_id": "abbr-0939",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "obstacle",
+      "abbreviation": "obs",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "obstacle": "obs",
+        "obstacles": "obs"
+      },
+      "entry_id": "abbr-1030",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "other rank",
+      "abbreviation": "OR",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "other rank": "OR",
+        "other ranks": "OR"
+      },
+      "entry_id": "abbr-1063",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "passenger",
+      "abbreviation": "pax",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "passenger": "pax",
+        "passengers": "pax"
+      },
+      "entry_id": "abbr-1075",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "ration",
+      "abbreviation": "rat",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "ration": "rat",
+        "rations": "rat"
+      },
+      "entry_id": "abbr-1177",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "refer",
+      "abbreviation": "Ref",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "refer": "Ref",
+        "refers": "Ref",
+        "referred": "Ref",
+        "referring": "Ref"
+      },
+      "entry_id": "abbr-1191",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "reserve",
+      "abbreviation": "res",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "reserve": "res",
+        "reserves": "res"
+      },
+      "entry_id": "abbr-1213",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "tactic",
+      "abbreviation": "tac",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "tactic": "tac",
+        "tactics": "tac"
+      },
+      "entry_id": "abbr-1380",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "vehicle off the road",
+      "abbreviation": "VOR",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "vehicle off the road": "VOR",
+        "vehicles off the road": "VOR"
+      },
+      "entry_id": "abbr-1479",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "zone",
+      "abbreviation": "Z",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant",
+        "compound_suffix"
+      ],
+      "examples": {
+        "zone": "Z",
+        "zones": "Z"
+      },
+      "entry_id": "abbr-1543",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "security force",
+      "abbreviation": "SF",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "security force": "SF",
+        "security forces": "SF"
+      },
+      "entry_id": "abbr-1723",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "ground combater",
+      "abbreviation": "G Cbt",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "ground combater": "G Cbt",
+        "ground combaters": "G Cbt"
+      },
+      "entry_id": "abbr-2227",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "command",
+      "abbreviation": "comd",
+      "part_of_speech": "verb",
+      "allowed_rules": [
+        "verb_forms",
+        "compound_suffix",
+        "compound_prefix"
+      ],
+      "examples": {
+        "command": "comd",
+        "commands": "comd",
+        "commanded": "comd",
+        "commanding": "comd"
+      },
+      "entry_id": "abbr-0330",
+      "source_rule": "0241 plurals and verbs"
+    },
+    {
+      "root": "deployment",
+      "abbreviation": "depl",
+      "part_of_speech": "noun",
+      "allowed_rules": [
+        "plural_invariant"
+      ],
+      "examples": {
+        "deployment": "depl",
+        "deployments": "depl"
+      },
+      "entry_id": "custom-deployment",
+      "source_rule": "Reviewer-approved exact conversion; plural treatment follows 0241"
+    }
+  ]
+}

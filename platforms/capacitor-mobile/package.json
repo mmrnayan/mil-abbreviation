@@ -1,0 +1,22 @@
+{
+  "name": "abbreviation-converter-mobile",
+  "version": "1.3.0",
+  "private": true,
+  "description": "Bundled offline Abbreviation Converter for Android and iPhone",
+  "scripts": {
+    "android": "cap sync android && cap open android",
+    "ios": "cap sync ios && cap open ios",
+    "sync": "cap sync"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/filesystem": "^8.1.4",
+    "@capacitor/ios": "8.5.3",
+    "@capacitor/share": "^8.0.3"
+  }
+}

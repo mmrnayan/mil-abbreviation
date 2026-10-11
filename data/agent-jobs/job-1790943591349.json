@@ -1,0 +1,18 @@
+{
+  "jobId": "job-1790943591349",
+  "status": "done",
+  "startedAt": "2026-10-02T12:19:51.349Z",
+  "progress": {
+    "stage": "done",
+    "detail": "Finished: read 4 corrections, found 1 new suggestion, skipped 4 already fixed."
+  },
+  "correctionsRead": 4,
+  "groupsFound": 5,
+  "proposalsNew": 1,
+  "proposalsKnown": 0,
+  "proposalIds": [
+    "AP-0001"
+  ],
+  "failures": [],
+  "finishedAt": "2026-10-02T12:19:51.414Z"
+}

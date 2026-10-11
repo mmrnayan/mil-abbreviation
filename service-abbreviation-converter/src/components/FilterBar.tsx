@@ -1,0 +1,80 @@
+"use client";
+
+import { AlertTriangle, SlidersHorizontal } from "lucide-react";
+import type { AnnexDefinition, ConversionFilters, ServiceId, WritingContext } from "@/engine/types";
+
+interface FilterBarProps {
+  filters: Required<ConversionFilters>;
+  annexes: AnnexDefinition[];
+  onChange: (filters: Required<ConversionFilters>) => void;
+}
+
+const services: Array<{ value: "all" | ServiceId; label: string }> = [
+  { value: "all", label: "All Services" },
+  { value: "tri-service", label: "Tri-Service" },
+  { value: "army", label: "Army" },
+  { value: "navy", label: "Navy" },
+  { value: "air-force", label: "Air Force" },
+  { value: "other", label: "Other" },
+];
+
+const contexts: Array<{ value: WritingContext; label: string }> = [
+  { value: "internal-service-writing", label: "Internal Service Writing" },
+  { value: "signal-message", label: "Signal Message" },
+  { value: "civilian-external-correspondence", label: "Civilian/External Correspondence" },
+  { value: "military-qualification", label: "Military Qualification" },
+  { value: "national-force-designation", label: "National Force Designation" },
+];
+
+export function FilterBar({ filters, annexes, onChange }: FilterBarProps) {
+  return (
+    <section className="surface-card p-4 sm:p-5" aria-labelledby="filter-heading">
+      <div className="mb-4 flex items-center gap-2">
+        <SlidersHorizontal className="h-4 w-4 text-forest-700 dark:text-gold-300" aria-hidden="true" />
+        <h2 id="filter-heading" className="text-sm font-bold">Conversion scope</h2>
+        <span className="text-xs text-slate-500 dark:text-stone-400">Optional filters</span>
+      </div>
+      <div className="grid gap-4 md:grid-cols-3">
+        <label>
+          <span className="form-label">Service</span>
+          <select
+            className="form-control"
+            value={filters.service}
+            onChange={(event) => onChange({ ...filters, service: event.target.value as Required<ConversionFilters>["service"] })}
+          >
+            {services.map((service) => <option value={service.value} key={service.value}>{service.label}</option>)}
+          </select>
+        </label>
+        <label>
+          <span className="form-label">Annex</span>
+          <select
+            className="form-control"
+            value={filters.annex}
+            onChange={(event) => onChange({ ...filters, annex: event.target.value })}
+          >
+            <option value="all">All Annexes</option>
+            {annexes.map((annex) => (
+              <option value={annex.id} key={annex.id}>Annex {annex.id} — {annex.title}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span className="form-label">Writing context</span>
+          <select
+            className="form-control"
+            value={filters.context}
+            onChange={(event) => onChange({ ...filters, context: event.target.value as WritingContext })}
+          >
+            {contexts.map((context) => <option value={context.value} key={context.value}>{context.label}</option>)}
+          </select>
+        </label>
+      </div>
+      {filters.context === "civilian-external-correspondence" && (
+        <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-950 dark:border-amber-700/60 dark:bg-amber-950/30 dark:text-amber-100" role="status">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+          <p>The source discourages Service abbreviations when addressing foreign, non-service or civilian authorities. Review any conversion carefully.</p>
+        </div>
+      )}
+    </section>
+  );
+}

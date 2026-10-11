@@ -1,0 +1,21 @@
+{
+  "jobId": "job-1790941927788",
+  "status": "done",
+  "startedAt": "2026-10-02T11:52:07.788Z",
+  "progress": {
+    "stage": "done",
+    "detail": "Proposals are ready for review on this page"
+  },
+  "correctionsRead": 3,
+  "groupsFound": 7,
+  "proposalsNew": 4,
+  "proposalsKnown": 3,
+  "proposalIds": [
+    "AP-0004",
+    "AP-0005",
+    "AP-0006",
+    "AP-0007"
+  ],
+  "failures": [],
+  "finishedAt": "2026-10-02T11:52:07.867Z"
+}

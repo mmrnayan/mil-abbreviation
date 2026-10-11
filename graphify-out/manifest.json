@@ -1,0 +1,458 @@
+{
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\eslint.config.mjs": {
+    "mtime": 1790693894.804125,
+    "hash": "ba0087de1dad6a58eebf452cc94d9262"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\next-env.d.ts": {
+    "mtime": 1790738690.2391636,
+    "hash": "8195d2c60ce847a459ae9d308d6a5724"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\next.config.mjs": {
+    "mtime": 1790693894.8291712,
+    "hash": "3d8f0f4ab4342c1740905810b747b470"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\postcss.config.mjs": {
+    "mtime": 1790693894.8503437,
+    "hash": "d3fd1d29b05a09ff76b595a70e1e7d50"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\tailwind.config.ts": {
+    "mtime": 1790693894.8560655,
+    "hash": "282f408ef29b25347c591b2c02818a29"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\platforms\\electron-win\\main.js": {
+    "mtime": 1790788340.061339,
+    "hash": "2b1250ddbd8f3ec5c39abba2952da9db"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\public\\sw.js": {
+    "mtime": 1790880799.1973917,
+    "hash": "b2b3f7d67b14c9a1e7146731e22044bc"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\scripts\\split-dataset.mjs": {
+    "mtime": 1790880931.2011764,
+    "hash": "f814881b562e58ca8da48b21e1d960cf"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\eslint.config.mjs": {
+    "mtime": 1790693915.147225,
+    "hash": "ba0087de1dad6a58eebf452cc94d9262"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\next-env.d.ts": {
+    "mtime": 1790693915.1335366,
+    "hash": "aa94238a90e7d04b7a47ecc3145ba6a0"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\next.config.mjs": {
+    "mtime": 1790693915.1007304,
+    "hash": "3d8f0f4ab4342c1740905810b747b470"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\postcss.config.mjs": {
+    "mtime": 1790693915.1295238,
+    "hash": "d3fd1d29b05a09ff76b595a70e1e7d50"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\tailwind.config.ts": {
+    "mtime": 1790693915.0891848,
+    "hash": "282f408ef29b25347c591b2c02818a29"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\public\\sw.js": {
+    "mtime": 1790693915.1528144,
+    "hash": "6a440c9bd74666aad4fb25ab8abd73ef"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\layout.tsx": {
+    "mtime": 1790693915.2160568,
+    "hash": "d70ce3c1ad7e0ad16cfbe0eafe0db0d7"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\page.tsx": {
+    "mtime": 1790693915.2232838,
+    "hash": "205f5beeafb1f37c8647b4f7b86ce54b"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\about\\page.tsx": {
+    "mtime": 1790693915.2636516,
+    "hash": "343b63a6c0af8196ff0227e1ddc3cddb"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\diagnostics\\page.tsx": {
+    "mtime": 1790693915.2636516,
+    "hash": "a04264e5da6e90bf8a4d732f74273801"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\dictionary\\page.tsx": {
+    "mtime": 1790693915.231933,
+    "hash": "188fb7d94fd18e108f75a92b127564d2"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\history\\page.tsx": {
+    "mtime": 1790693915.247753,
+    "hash": "e545d5498853c6adf363c7bbf678e6f1"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\app\\rules\\page.tsx": {
+    "mtime": 1790693915.247753,
+    "hash": "9c71d5273dd398cfb4ba60da63058b3b"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\AboutContent.tsx": {
+    "mtime": 1790693915.3586316,
+    "hash": "9751aa404f4195aaa5c796c42dbc9d86"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\AmbiguityReview.tsx": {
+    "mtime": 1790693915.3268433,
+    "hash": "20795eca24853667667fa13a8fff7bfd"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\AppFooter.tsx": {
+    "mtime": 1790693915.2818713,
+    "hash": "387e30035b087d8efddb44d68c57db79"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\AppHeader.tsx": {
+    "mtime": 1790693915.2999873,
+    "hash": "a2f0db21319f86e3498de9712910136b"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\ConverterPanel.tsx": {
+    "mtime": 1790693915.3329036,
+    "hash": "c45d518288918f85261f2c7dc572e486"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\DatasetStatusPanel.tsx": {
+    "mtime": 1790693915.2999873,
+    "hash": "e916edb488d0ac9edd726dfe18697df3"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\DiagnosticsContent.tsx": {
+    "mtime": 1790693915.3506556,
+    "hash": "93946092b15ee8559226a7f5351e5696"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\DictionaryTable.tsx": {
+    "mtime": 1790693915.3378353,
+    "hash": "71e5ac5a2dbf0f4282adb9492aa909e3"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\DirectionSelector.tsx": {
+    "mtime": 1790693915.3162143,
+    "hash": "696b3b7d283d22b75f58666317c3de7e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\FilterBar.tsx": {
+    "mtime": 1790693915.3110986,
+    "hash": "39185a4f053074b34978d3220cfb97ec"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\HighlightedOutput.tsx": {
+    "mtime": 1790693915.3162143,
+    "hash": "7e408e130a5ab0df533824985dd48b50"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\HistoryContent.tsx": {
+    "mtime": 1790693915.3506556,
+    "hash": "84e08c3716d5a6645745e69d2897220c"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\PwaRegister.tsx": {
+    "mtime": 1790693915.2818713,
+    "hash": "6b6e5815f7f9e8ef7586f2e367d2ba78"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\components\\RulesContent.tsx": {
+    "mtime": 1790693915.342831,
+    "hash": "d9dba9ef1ce7f4e8d63efa5859f98c0e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\ambiguityResolver.ts": {
+    "mtime": 1790693915.396178,
+    "hash": "ec73522eb490c17059be0663f42a7944"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\contextRules.ts": {
+    "mtime": 1790693915.3905637,
+    "hash": "db38ee8a51e9cf698a4fe65be11006b0"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\converter.ts": {
+    "mtime": 1790693915.4063196,
+    "hash": "dea446ff9612dc03a7c8b040741e6cd2"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\datasetValidator.ts": {
+    "mtime": 1790693915.396178,
+    "hash": "99796312f6f495506fbc349a48d2839f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\phraseTrie.ts": {
+    "mtime": 1790693915.3752952,
+    "hash": "4419347e27ab0fc8216a62ed5883df59"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\protector.ts": {
+    "mtime": 1790693915.3752952,
+    "hash": "b4154cbd2fef5c1618d2d9344771f5da"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\engine\\types.ts": {
+    "mtime": 1790693915.3586316,
+    "hash": "5cca659eafd494f45f2c271f6d01aa8c"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\hooks\\useConversionHistory.ts": {
+    "mtime": 1790693915.4221842,
+    "hash": "fd45150e420bf42fe4b60cd9462b36bc"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\hooks\\useConverter.ts": {
+    "mtime": 1790693915.4063196,
+    "hash": "3d3ebfb22308663cebb4493e725e793a"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\hooks\\usePersistentState.ts": {
+    "mtime": 1790693915.4221842,
+    "hash": "365e62102ef3053fa689d9cc8e76aaa9"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\providers\\DatasetProvider.tsx": {
+    "mtime": 1790693915.4379437,
+    "hash": "4698b639ee01d7c9d55873ad9a2d205c"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\tests\\ambiguity.test.ts": {
+    "mtime": 1790693915.453878,
+    "hash": "e448cf9cda9ed6cfbf243583fe4e6e12"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\tests\\contextRules.test.ts": {
+    "mtime": 1790693915.4860044,
+    "hash": "9bc3e02c9208e9315321079888bec62d"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\tests\\converter.test.ts": {
+    "mtime": 1790693915.4918075,
+    "hash": "da7dd924069be720769bc8c0f6fec4e8"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\tests\\datasetValidator.test.ts": {
+    "mtime": 1790693915.4739876,
+    "hash": "a0b5acbdf5f63e2e9d834f295e6c4e7f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\tests\\testDataset.ts": {
+    "mtime": 1790693915.4739876,
+    "hash": "7399a221e1b06fa3f28bba3ddd62e077"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\tests\\variants.test.ts": {
+    "mtime": 1790693915.453878,
+    "hash": "67fc9574cc892ac325129091c14bfb9e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\src\\workers\\converter.worker.ts": {
+    "mtime": 1790693915.4379437,
+    "hash": "1c6ecfc9bf5a4339f7c22694a39ab4e7"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\layout.tsx": {
+    "mtime": 1790788323.2459235,
+    "hash": "732ad16f1a2abbc77baf86ac6929ac9d"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\page.tsx": {
+    "mtime": 1790693894.96357,
+    "hash": "205f5beeafb1f37c8647b4f7b86ce54b"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\about\\page.tsx": {
+    "mtime": 1790715097.1922414,
+    "hash": "4ea9a2a2b0f93d68e10b7ded544ebb77"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\api\\feedback\\route.ts": {
+    "mtime": 1790746698.4940426,
+    "hash": "c0d428367786e946f111e143dd697131"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\diagnostics\\page.tsx": {
+    "mtime": 1790693894.980758,
+    "hash": "a04264e5da6e90bf8a4d732f74273801"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\dictionary\\page.tsx": {
+    "mtime": 1790693894.980758,
+    "hash": "188fb7d94fd18e108f75a92b127564d2"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\feedback\\page.tsx": {
+    "mtime": 1790746780.4584134,
+    "hash": "f44c0a4e5f8ac77c9fc58eb17dd38a6f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\history\\page.tsx": {
+    "mtime": 1790693895.0026581,
+    "hash": "e545d5498853c6adf363c7bbf678e6f1"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\app\\rules\\page.tsx": {
+    "mtime": 1790693895.012803,
+    "hash": "9c71d5273dd398cfb4ba60da63058b3b"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\AboutContent.tsx": {
+    "mtime": 1790741555.5020049,
+    "hash": "40c17a7417606874dc61b0cb96d9d63d"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\AmbiguityReview.tsx": {
+    "mtime": 1790693895.0261703,
+    "hash": "20795eca24853667667fa13a8fff7bfd"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\AppFooter.tsx": {
+    "mtime": 1790749012.5248287,
+    "hash": "d2488d605fe3ffd69330bf85e730513e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\AppHeader.tsx": {
+    "mtime": 1790740118.9423926,
+    "hash": "f2f453d3d3ba5939dea06de0612bd0cf"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\ConverterPanel.tsx": {
+    "mtime": 1790743254.9541557,
+    "hash": "116aaa903fa6589733e1263885edfdb9"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\DatasetStatusPanel.tsx": {
+    "mtime": 1790693895.0514898,
+    "hash": "e916edb488d0ac9edd726dfe18697df3"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\DiagnosticsContent.tsx": {
+    "mtime": 1790693895.057843,
+    "hash": "93946092b15ee8559226a7f5351e5696"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\DictionaryTable.tsx": {
+    "mtime": 1790740674.0674064,
+    "hash": "8e62c3aba399d1a78fca3c437c298594"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\DirectionSelector.tsx": {
+    "mtime": 1790715004.5333438,
+    "hash": "5ddc35ddbd8d0d85365b1e2e5f60c35e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\FeedbackReports.tsx": {
+    "mtime": 1790746823.8682477,
+    "hash": "dcb37bf6e9e0c1937e31622920c8cc7e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\FilterBar.tsx": {
+    "mtime": 1790693895.0738535,
+    "hash": "39185a4f053074b34978d3220cfb97ec"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\HighlightedOutput.tsx": {
+    "mtime": 1790693895.0811648,
+    "hash": "7e408e130a5ab0df533824985dd48b50"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\HistoryContent.tsx": {
+    "mtime": 1790741974.2640898,
+    "hash": "16a55be018cb204f4604e961348deea1"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\PwaRegister.tsx": {
+    "mtime": 1790693895.091776,
+    "hash": "6b6e5815f7f9e8ef7586f2e367d2ba78"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\ReportIssueWidget.tsx": {
+    "mtime": 1790748990.7430768,
+    "hash": "b3420a2aaf2bb5b336be88c480f38407"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\components\\RulesContent.tsx": {
+    "mtime": 1790693895.0970066,
+    "hash": "d9dba9ef1ce7f4e8d63efa5859f98c0e"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\ambiguityResolver.ts": {
+    "mtime": 1790693895.105611,
+    "hash": "ec73522eb490c17059be0663f42a7944"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\compoundWords.ts": {
+    "mtime": 1790712170.4449697,
+    "hash": "c9b1267f45f2646b13979b9a70410557"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\contextRules.ts": {
+    "mtime": 1790693895.105611,
+    "hash": "db38ee8a51e9cf698a4fe65be11006b0"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\converter.ts": {
+    "mtime": 1790712671.770061,
+    "hash": "f7553aeed1e14ac2c780c81e059995b0"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\datasetValidator.ts": {
+    "mtime": 1790693895.1215785,
+    "hash": "99796312f6f495506fbc349a48d2839f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\exactExceptions.ts": {
+    "mtime": 1790712135.5755186,
+    "hash": "916cc7c4dcbfe3caf594376c954e4026"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\morphMatcher.ts": {
+    "mtime": 1790713071.1039896,
+    "hash": "018f5b579787d099fa3546e82816de40"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\morphology.ts": {
+    "mtime": 1790712750.952962,
+    "hash": "c790b2c59c4bc9dd620d3adea40aac2d"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\nounPlurals.ts": {
+    "mtime": 1790712159.2524734,
+    "hash": "4b4f3de68aa27607122961a098c6cfdd"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\phraseTrie.ts": {
+    "mtime": 1790693895.1215785,
+    "hash": "4419347e27ab0fc8216a62ed5883df59"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\protector.ts": {
+    "mtime": 1790693895.1215785,
+    "hash": "b4154cbd2fef5c1618d2d9344771f5da"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\rulesOverlay.ts": {
+    "mtime": 1790880729.6225655,
+    "hash": "66e6f62b7120ef3762359a23ddac3c07"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\types.ts": {
+    "mtime": 1790711795.1874518,
+    "hash": "ba2622d94d06c6631774deb058c15478"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\engine\\verbDerivatives.ts": {
+    "mtime": 1790712147.0668628,
+    "hash": "5261d58c53c048e1f8edd47cd0271444"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\hooks\\useConversionHistory.ts": {
+    "mtime": 1790741271.068756,
+    "hash": "d1d324f8b7a3374d210e0800705efe5f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\hooks\\useConverter.ts": {
+    "mtime": 1790693895.1533532,
+    "hash": "3d3ebfb22308663cebb4493e725e793a"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\hooks\\usePersistentState.ts": {
+    "mtime": 1790693895.1533532,
+    "hash": "365e62102ef3053fa689d9cc8e76aaa9"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\providers\\DatasetProvider.tsx": {
+    "mtime": 1790880775.862561,
+    "hash": "1ff2ac94048de3b439345f47b99491ba"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\ambiguity.test.ts": {
+    "mtime": 1790693895.184888,
+    "hash": "e448cf9cda9ed6cfbf243583fe4e6e12"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\contextRules.test.ts": {
+    "mtime": 1790693895.184888,
+    "hash": "9bc3e02c9208e9315321079888bec62d"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\converter.test.ts": {
+    "mtime": 1790693895.184888,
+    "hash": "da7dd924069be720769bc8c0f6fec4e8"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\datasetValidator.test.ts": {
+    "mtime": 1790693895.2006593,
+    "hash": "a0b5acbdf5f63e2e9d834f295e6c4e7f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\morphology.test.ts": {
+    "mtime": 1790713977.8630617,
+    "hash": "be5085cbb531943cd9e604dbfaa2ca5a"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\testDataset.ts": {
+    "mtime": 1790880761.362134,
+    "hash": "18285cb36d48abb53ad4fc875877d327"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\tests\\variants.test.ts": {
+    "mtime": 1790712465.1552446,
+    "hash": "b889a78e18b43718ffd17becaf8414a7"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\utils\\exporters.ts": {
+    "mtime": 1790741863.0624,
+    "hash": "a8d69e7058c64e93c820ce8eb0918af9"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\src\\workers\\converter.worker.ts": {
+    "mtime": 1790693895.2167573,
+    "hash": "1c6ecfc9bf5a4339f7c22694a39ab4e7"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\README.md": {
+    "mtime": 1790693894.804125,
+    "hash": "97e6f396594a4f3e765492ed26bf556c"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\platforms\\README.md": {
+    "mtime": 1790788383.4648147,
+    "hash": "971f2bde82e0044d6cb0401ec0eb9c29"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\platforms\\capacitor-mobile\\www\\index.html": {
+    "mtime": 1790788349.593562,
+    "hash": "105c0a0f0b251a28c60a8d89c7471029"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\README.md": {
+    "mtime": 1790693915.1051075,
+    "hash": "97e6f396594a4f3e765492ed26bf556c"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\public\\icons\\army.png": {
+    "mtime": 1790714887.1665163,
+    "hash": "fd558c5fe2eab87a161f4493f457484f"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\public\\icons\\icon-192.png": {
+    "mtime": 1790693894.9202013,
+    "hash": "c9fde161d0e3a9d17c66aa62ef301158"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\public\\icons\\icon-512.png": {
+    "mtime": 1790693894.9317853,
+    "hash": "1d5781641f1ed7cdca655455770edad4"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\public\\icons\\icon-192.png": {
+    "mtime": 1790693915.1859565,
+    "hash": "c9fde161d0e3a9d17c66aa62ef301158"
+  },
+  "E:\\JSSDM_App\\abbre\\abb\\service-abbreviation-converter\\service-abbreviation-converter\\public\\icons\\icon-512.png": {
+    "mtime": 1790693915.199864,
+    "hash": "1d5781641f1ed7cdca655455770edad4"
+  }
+}
