@@ -49,7 +49,7 @@ export function AppHeader() {
         <div className="page-shell flex min-h-[76px] items-center justify-between gap-4 py-3">
           <Link href="/" className="group flex min-w-0 items-center gap-3 rounded-lg">
             <Image
-              src="/icons/army.png"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/icons/army.png`}
               alt=""
               width={56}
               height={56}

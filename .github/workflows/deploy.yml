@@ -27,6 +27,8 @@ jobs:
       - run: node scripts/build-consumer.mjs
         env:
           NEXT_PUBLIC_SERVICE_ORIGIN: ${{ vars.NEXT_PUBLIC_SERVICE_ORIGIN }}
+          # Empty BASE_PATH (custom domain / root hosting) can be set via repo variable BASE_PATH.
+          BASE_PATH: ${{ vars.BASE_PATH != '' && vars.BASE_PATH || '/mil-abbreviation' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

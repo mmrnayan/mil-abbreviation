@@ -7,6 +7,10 @@ import { ReportIssueWidget } from "@/components/ReportIssueWidget";
 import { DatasetProvider } from "@/providers/DatasetProvider";
 import { FeedbackDelivery } from "@/components/FeedbackDelivery";
 
+// Deployment base path (set by the consumer build for subpath hosting such as GitHub Pages project sites).
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const withBase = (path: string) => base + path;
+
 export const metadata: Metadata = {
   title: {
     default: "Abbreviation Converter",
@@ -15,7 +19,7 @@ export const metadata: Metadata = {
   description:
     "Authorized abbreviation conversion based on the Joint Services Staff Duties Manual 2022 (Service Writing).",
   applicationName: "Abbreviation Converter",
-  manifest: "/manifest.webmanifest",
+  manifest: withBase("/manifest.webmanifest"),
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
@@ -23,11 +27,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icons/army.png", type: "image/png" },
-      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: withBase("/icons/army.png"), type: "image/png" },
+      { url: withBase("/icons/icon-192.png"), sizes: "192x192", type: "image/png" },
+      { url: withBase("/icons/icon-512.png"), sizes: "512x512", type: "image/png" },
     ],
-    apple: "/icons/army.png",
+    apple: withBase("/icons/army.png"),
   },
 };
 

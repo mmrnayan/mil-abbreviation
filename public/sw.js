@@ -1,8 +1,9 @@
 /* All consumer assets are generated from the complete export. Installation is all-or-nothing. */
 let activeCache;
+const basePath = new URL(".", self.registration.scope).pathname;
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
-    const response = await fetch("/offline-assets.json", { cache: "no-store" });
+    const response = await fetch(basePath + "offline-assets.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Offline manifest unavailable");
     const manifest = await response.json();
     const name = "sac-consumer-" + manifest.version;
@@ -24,7 +25,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
-  if (request.method !== "GET" || url.origin !== self.location.origin || url.pathname.startsWith("/api/") || url.pathname === "/data/dataset-package.json") return;
+  if (request.method !== "GET" || url.origin !== self.location.origin || url.pathname.startsWith("/api/") || url.pathname === basePath + "data/dataset-package.json") return;
   event.respondWith((async () => {
     if (!activeCache) activeCache = (await caches.keys()).filter((key) => key.startsWith("sac-consumer-")).at(-1);
     const cache = activeCache ? await caches.open(activeCache) : undefined;
