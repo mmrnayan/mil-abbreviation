@@ -1,35 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "services": {
-    "app": {
-      "root": ".",
-      "framework": "nextjs",
-      "bindings": [
-        {
-          "type": "service",
-          "service": "service-abbreviation-converter",
-          "format": "url",
-          "env": "CONVERTER_URL"
-        }
-      ]
-    },
-    "service-abbreviation-converter": {
-      "root": "service-abbreviation-converter",
-      "framework": "nextjs"
-    }
-  },
+  "framework": "nextjs",
   "rewrites": [
     {
-      "source": "/converter/(.*)",
-      "destination": {
-        "service": "service-abbreviation-converter"
-      }
-    },
-    {
-      "source": "/(.*)",
-      "destination": {
-        "service": "app"
-      }
+      "source": "/service/:path*",
+      "destination": "${CONVERTER_URL}/:path*"
     }
   ]
 }
