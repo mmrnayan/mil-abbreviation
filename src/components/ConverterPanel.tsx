@@ -3,10 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
-  Braces,
   Check,
   ClipboardPaste,
-  Clock3,
   Copy,
   Download,
   Eraser,
@@ -14,7 +12,6 @@ import {
   FileJson,
   Highlighter,
   ListChecks,
-  LockKeyhole,
   Sparkles,
   Upload,
 } from "lucide-react";
@@ -108,7 +105,7 @@ export function ConverterPanel() {
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { addResult } = useConversionHistory();
-  const { convert, isReady, workerMode } = useConverter(dataset, datasetState.overlay);
+  const { convert, isReady } = useConverter(dataset, datasetState.overlay);
   const learning = useLearningProfile();
   const [inputSelection, setInputSelection] = useState<{ start: number; end: number }>();
   const datasetVersion = datasetState.version;
@@ -328,23 +325,7 @@ export function ConverterPanel() {
 
   return (
     <>
-      <section className="border-b border-forest-900/10 bg-ivory bg-institutional-grid dark:border-white/10 dark:bg-[#111815]">
-        <div className="page-shell py-8 sm:py-11">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <div className="max-w-3xl">
-              <h1 className="font-display text-3xl font-bold tracking-tight text-forest-950 sm:text-4xl dark:text-white">Write clearly. Abbreviate with confidence.</h1>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-700 dark:text-stone-300">
-                Abbreviations follow the <strong>Joint Services Staff Duties Manual 2022 — Service Writing</strong> (Section 16, Paragraph 0241).
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 text-xs font-semibold">
-              <span className="status-pill border-forest-200 bg-white text-forest-800 dark:border-white/15 dark:bg-white/5 dark:text-forest-100"><Braces className="h-3.5 w-3.5" /> {dataset.entries.length.toLocaleString()} entries</span>
-              <span className="status-pill border-forest-200 bg-white text-forest-800 dark:border-white/15 dark:bg-white/5 dark:text-forest-100"><LockKeyhole className="h-3.5 w-3.5" /> Local only</span>
-              <span className="status-pill border-forest-200 bg-white text-forest-800 dark:border-white/15 dark:bg-white/5 dark:text-forest-100"><Sparkles className="h-3.5 w-3.5" /> {workerMode === "worker" ? "Worker accelerated" : "Local engine"}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <h1 className="sr-only">Abbreviation Converter</h1>
 
       <div className="page-shell space-y-5 py-6 sm:py-8">
         <FilterBar filters={filters} annexes={dataset.annexes} onChange={setFilters} />
@@ -389,7 +370,10 @@ export function ConverterPanel() {
             {result && result.originalText === input && inputSelection && <ReportIssueWidget label="Report selected text" conversion={{ result, datasetVersion, selection: mapSelection(result, inputSelection, "source") }} />}
             <footer className="flex items-center justify-between border-t px-4 py-3 text-xs text-slate-500 dark:border-white/10 dark:text-stone-400">
               <span>{countWords(input).toLocaleString()} words</span>
-              <span>{input.length.toLocaleString()} characters</span>
+              <span className="flex items-center gap-3">
+                <kbd className="rounded border bg-slate-100 px-1.5 py-0.5 font-mono text-[10px] dark:border-white/15 dark:bg-white/10">Ctrl/⌘ ↵</kbd>
+                <span>{input.length.toLocaleString()} characters</span>
+              </span>
             </footer>
           </article>
 
@@ -468,13 +452,6 @@ export function ConverterPanel() {
             )}
           </section>
         )}
-
-        <aside className="flex flex-col gap-3 rounded-2xl border border-forest-200 bg-forest-50 p-4 text-sm dark:border-forest-800 dark:bg-forest-950/50">
-          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <div className="flex items-start gap-2.5"><LockKeyhole className="mt-0.5 h-4 w-4 shrink-0 text-forest-700 dark:text-gold-300" /><div><strong>Conversion runs locally.</strong><p className="mt-0.5 text-xs text-slate-600 dark:text-stone-400">Text is sent to the app owner only when you submit a report or correction. Preferences and the latest 50 conversions stay in this browser.</p></div></div>
-            <span className="inline-flex shrink-0 items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-stone-400"><Clock3 className="h-3.5 w-3.5" /> Converts and saves to history automatically · Ctrl/⌘ + Enter saves instantly</span>
-          </div>
-        </aside>
       </div>
 
       <div className="page-shell mt-6"><details className="surface-card p-5"><summary className="cursor-pointer text-lg font-bold">Recent conversions</summary><HistoryContent embedded onReopen={(item) => { setInput(item.originalText); setDirection(item.direction); setFilters({ service: (item.appliedFilters.service ?? "all") as Required<ConversionFilters>["service"], annex: item.appliedFilters.annex ?? "all", context: (item.appliedFilters.context ?? "internal-service-writing") as Required<ConversionFilters>["context"] }); setResolutions({}); setResult(undefined); window.scrollTo({ top: 0, behavior: "smooth" }); }} /></details></div>

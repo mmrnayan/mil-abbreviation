@@ -4,12 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
   ArrowDownAZ,
-  BookOpenText,
   ChevronLeft,
   ChevronRight,
   RotateCcw,
   Search,
-  ShieldCheck,
 } from "lucide-react";
 import { DatasetStatusPanel } from "./DatasetStatusPanel";
 import type { AbbreviationEntry, ConversionResult } from "@/engine/types";
@@ -77,12 +75,9 @@ export function DictionaryTable() {
   return (
     <>
       <section className="border-b bg-forest-50 dark:border-white/10 dark:bg-[#111815]">
-        <div className="page-shell py-9 sm:py-12">
-          <p className="eyebrow flex items-center gap-2"><BookOpenText className="h-4 w-4" /> Authoritative reference</p>
-          <div className="mt-3 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div><h1 className="font-display text-3xl font-bold text-forest-950 sm:text-4xl dark:text-white">Abbreviation dictionary</h1><p className="mt-3 max-w-2xl text-slate-700 dark:text-stone-300">Search full forms, printed abbreviations, declared match variants and Annex B meanings from the bundled dataset.</p></div>
-            <div className="flex gap-2"><span className="status-pill border-forest-200 bg-white text-forest-800 dark:border-white/15 dark:bg-white/5 dark:text-stone-200"><ShieldCheck className="h-3.5 w-3.5" /> {dataset.entries.length.toLocaleString()} records</span><span className="status-pill border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">{dataset.statistics.entries_requiring_review} verify</span></div>
-          </div>
+        <div className="page-shell flex flex-wrap items-baseline justify-between gap-3 py-6">
+          <h1 className="font-display text-2xl font-bold text-forest-950 sm:text-3xl dark:text-white">Dictionary</h1>
+          <p className="text-sm text-slate-600 dark:text-stone-300">{dataset.entries.length.toLocaleString()} records · {dataset.statistics.entries_requiring_review} to verify</p>
         </div>
       </section>
 

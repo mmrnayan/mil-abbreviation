@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CheckCircle2, Moon, Sun, Settings } from "lucide-react";
-import { useDataset } from "@/providers/DatasetProvider";
+import { Moon, Sun, Settings } from "lucide-react";
 
 const navigation = [
   { href: "/", label: "Converter" },
@@ -16,7 +15,6 @@ const navigation = [
 
 export function AppHeader() {
   const pathname = usePathname();
-  const dataset = useDataset();
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -83,12 +81,6 @@ export function AppHeader() {
               })}
             </nav>
             <span className="mx-2 h-6 w-px bg-white/15" />
-            {dataset.status === "ready" && (
-              <span className="mr-1 hidden items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2 py-1 text-[11px] font-semibold text-forest-100 xl:inline-flex">
-                <CheckCircle2 className="h-3.5 w-3.5 text-gold-300" aria-hidden="true" />
-                Dataset verified
-              </span>
-            )}
             <button
               type="button"
               onClick={toggleTheme}

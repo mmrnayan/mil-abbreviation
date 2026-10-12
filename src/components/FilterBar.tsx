@@ -88,10 +88,10 @@ export function FilterBar({ filters, annexes, onChange }: FilterBarProps) {
           <p>Service abbreviations are excluded for these addressees. Full forms will be retained.</p>
         </div>
       )}
-      {filters.context === "operational-heading" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Paste the paragraph heading here. It will remain in full as required for operational and administrative orders.</p>}
-      {["formal-letter", "demi-official-letter", "commanded-letter", "service-paper"].includes(filters.context) && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Only decorations, qualifications and arms or services will be abbreviated.</p>}
-      {filters.context === "personnel-line" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Use for a person’s rank, name, decorations and qualifications. Initials and qualification punctuation will follow the source format.</p>}
-      {filters.context === "air-force-operational-paper" && filters.service !== "air-force" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Select Air Force to apply the exception for BAF service papers on operational matters.</p>}
+      {filters.context === "operational-heading" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Operational/administrative headings stay in full.</p>}
+      {["formal-letter", "demi-official-letter", "commanded-letter", "service-paper"].includes(filters.context) && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Only decorations, qualifications and arms/services are abbreviated.</p>}
+      {filters.context === "personnel-line" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Rank, name, decorations and qualifications.</p>}
+      {filters.context === "air-force-operational-paper" && filters.service !== "air-force" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Select Air Force to apply this exception.</p>}
     </section>
   );
 }
