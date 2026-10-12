@@ -55,7 +55,7 @@ export function AppHeader() {
               className="h-14 w-14 shrink-0 rounded-xl object-contain"
             />
             <span className="block truncate font-display text-[17px] font-bold tracking-[.01em] sm:text-2xl">
-              Abbreviation Converter
+              {pathname.startsWith("/dictionary") ? "Dictionary" : "Abbreviation Converter"}
             </span>
           </Link>
 

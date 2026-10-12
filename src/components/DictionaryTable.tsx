@@ -74,12 +74,8 @@ export function DictionaryTable() {
 
   return (
     <>
-      <section className="border-b bg-forest-50 dark:border-white/10 dark:bg-[#111815]">
-        <div className="page-shell flex flex-wrap items-baseline justify-between gap-3 py-6">
-          <h1 className="font-display text-2xl font-bold text-forest-950 sm:text-3xl dark:text-white">Dictionary</h1>
-          <p className="text-sm text-slate-600 dark:text-stone-300">{dataset.entries.length.toLocaleString()} records · {dataset.statistics.entries_requiring_review} to verify</p>
-        </div>
-      </section>
+      <h1 className="sr-only">Dictionary</h1>
+
 
       <div className="page-shell py-7">
         <section className="surface-card p-4 sm:p-5" aria-label="Dictionary search and filters">
