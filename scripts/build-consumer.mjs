@@ -15,7 +15,7 @@ await import("./package-data.mjs");
 await cp(path.join(root, "src"), path.join(stage, "src"), { recursive: true, filter: (file) => {
   const relative = path.relative(path.join(root, "src"), file).split(path.sep).join("/");
   if (relative === "proxy.ts" || relative === "tests" || relative.startsWith("tests/")) return false;
-  if (relative.startsWith("app/")) return ["page.tsx", "layout.tsx", "globals.css", "dictionary", "about"].some((name) => relative === `app/${name}` || relative.startsWith(`app/${name}/`));
+  if (relative.startsWith("app/")) return ["page.tsx", "layout.tsx", "globals.css", "icon.png", "dictionary", "about"].some((name) => relative === `app/${name}` || relative.startsWith(`app/${name}/`));
   return true;
 } });
 await cp(path.join(root, "public"), path.join(stage, "public"), { recursive: true });
