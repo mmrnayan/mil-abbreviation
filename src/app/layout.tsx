@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { AppHeader } from "@/components/AppHeader";
 import { AppFooter } from "@/components/AppFooter";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <AppFooter />
           </div>
           <PwaRegister />
+          <SpeedInsights />
           <FeedbackDelivery />
           <ReportIssueWidget />
         </DatasetProvider>
