@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { AppHeader } from "@/components/AppHeader";
-import { AppFooter } from "@/components/AppFooter";
 import { PwaRegister } from "@/components/PwaRegister";
 import { NativeAppShell } from "@/components/NativeAppShell";
 import { DatasetProvider } from "@/providers/DatasetProvider";
@@ -58,8 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <DatasetProvider>
           <div className="flex min-h-screen flex-col">
             <AppHeader />
-            <main id="main-content" className="flex-1">{children}</main>
-            <AppFooter />
+            <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>
           </div>
           <PwaRegister />
           <NativeAppShell />
