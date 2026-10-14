@@ -84,13 +84,23 @@ export function DictionaryTable() {
             <Search className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" aria-hidden="true" />
             <input className="form-control !py-3 !pl-11 text-base" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search full form, abbreviation or match variant…" />
           </label>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <label><span className="form-label">Service</span><select className="form-control" value={service} onChange={(event) => setService(event.target.value)}><option value="all">All Services</option><option value="tri-service">Tri-Service</option><option value="army">Army</option><option value="navy">Navy</option><option value="air-force">Air Force</option><option value="other">Other</option></select></label>
-            <label><span className="form-label">Category</span><select className="form-control" value={category} onChange={(event) => setCategory(event.target.value)}><option value="all">All Categories</option>{categories.map((item) => <option key={item} value={item}>{item.replaceAll("_", " ")}</option>)}</select></label>
-            <label><span className="form-label">Alphabetical sort</span><select className="form-control" value={sort} onChange={(event) => setSort(event.target.value as typeof sort)}><option value="full-form">Full form A–Z</option><option value="abbreviation">Abbreviation A–Z</option></select></label>
-          </div>
-          <div className="mt-4 flex justify-end border-t pt-4 text-sm dark:border-white/10">
-            <button type="button" className="button-ghost" onClick={reset}><RotateCcw className="h-4 w-4" /> Reset</button>
+          <div className="mt-4 space-y-2">
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Service">
+              {[{ value: "all", label: "All" }, { value: "tri-service", label: "Tri-Service" }, { value: "army", label: "Army" }, { value: "navy", label: "Navy" }, { value: "air-force", label: "Air Force" }, { value: "other", label: "Other" }].map((item) => (
+                <button key={item.value} type="button" aria-pressed={service === item.value} className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${service === item.value ? "border-transparent bg-gold-300 text-forest-950" : "border-forest-200 bg-white text-forest-800 hover:bg-forest-50 dark:border-white/15 dark:bg-white/5 dark:text-forest-100 dark:hover:bg-white/10"}`} onClick={() => setService(item.value)}>{item.label}</button>
+              ))}
+            </div>
+            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1" role="group" aria-label="Category">
+              <button key="all" type="button" aria-pressed={category === "all"} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${category === "all" ? "border-transparent bg-gold-300 text-forest-950" : "border-forest-200 bg-white text-forest-800 hover:bg-forest-50 dark:border-white/15 dark:bg-white/5 dark:text-forest-100 dark:hover:bg-white/10"}`} onClick={() => setCategory("all")}>All Categories</button>
+              {categories.map((item) => (
+                <button key={item} type="button" aria-pressed={category === item} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold capitalize transition-colors ${category === item ? "border-transparent bg-gold-300 text-forest-950" : "border-forest-200 bg-white text-forest-800 hover:bg-forest-50 dark:border-white/15 dark:bg-white/5 dark:text-forest-100 dark:hover:bg-white/10"}`} onClick={() => setCategory(item)}>{item.replaceAll("_", " ")}</button>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Sort order">
+              <button type="button" aria-pressed={sort === "full-form"} className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${sort === "full-form" ? "border-transparent bg-gold-300 text-forest-950" : "border-forest-200 bg-white text-forest-800 hover:bg-forest-50 dark:border-white/15 dark:bg-white/5 dark:text-forest-100 dark:hover:bg-white/10"}`} onClick={() => setSort("full-form")}>Full form A–Z</button>
+              <button type="button" aria-pressed={sort === "abbreviation"} className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${sort === "abbreviation" ? "border-transparent bg-gold-300 text-forest-950" : "border-forest-200 bg-white text-forest-800 hover:bg-forest-50 dark:border-white/15 dark:bg-white/5 dark:text-forest-100 dark:hover:bg-white/10"}`} onClick={() => setSort("abbreviation")}>Abbreviation A–Z</button>
+              <button type="button" className="button-ghost ml-auto !min-h-11" onClick={reset}><RotateCcw className="h-4 w-4" /> Reset</button>
+            </div>
           </div>
         </section>
 
