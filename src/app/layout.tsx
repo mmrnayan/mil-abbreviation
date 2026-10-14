@@ -4,9 +4,12 @@ import "./globals.css";
 import { AppHeader } from "@/components/AppHeader";
 import { AppFooter } from "@/components/AppFooter";
 import { PwaRegister } from "@/components/PwaRegister";
+import { NativeAppShell } from "@/components/NativeAppShell";
 import { ReportIssueWidget } from "@/components/ReportIssueWidget";
 import { DatasetProvider } from "@/providers/DatasetProvider";
 import { FeedbackDelivery } from "@/components/FeedbackDelivery";
+import Script from "next/script";
+import { OfficePaneMode } from "@/components/OfficePaneMode";
 
 // Deployment base path (set by the consumer build for subpath hosting such as GitHub Pages project sites).
 const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -50,6 +53,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
+        <Script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" strategy="beforeInteractive" />
+        <OfficePaneMode />
         <DatasetProvider>
           <div className="flex min-h-screen flex-col">
             <AppHeader />
@@ -57,6 +62,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <AppFooter />
           </div>
           <PwaRegister />
+          <NativeAppShell />
           <SpeedInsights />
           <FeedbackDelivery />
           <ReportIssueWidget />

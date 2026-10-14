@@ -105,3 +105,53 @@ body {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Word task panes are narrow. Keep the primary workflow visible without forcing
+   users through a long desktop layout. */
+@media (max-width: 520px) {
+  .page-shell { @apply px-3; }
+  .surface-card { @apply rounded-xl; }
+  .page-shell.space-y-5 { @apply space-y-3 py-3; }
+  .page-shell.space-y-5 > section[aria-label="Converter workspace"] { @apply gap-3; }
+  .page-shell.space-y-5 > section[aria-label="Converter workspace"] article { min-height: 0; }
+  .page-shell.space-y-5 > section[aria-label="Converter workspace"] article:first-child textarea { min-height: 220px; }
+  .page-shell.space-y-5 > section[aria-label="Converter workspace"] article:last-child .min-h-\[325px\] { min-height: 180px; }
+  .page-shell.space-y-5 > section[aria-label="Converter workspace"] article:first-child footer { display: none; }
+  .page-shell.space-y-5 > section[aria-label="Converter workspace"] article:last-child footer { display: none; }
+  header .page-shell { min-height: 64px; }
+  header .page-shell img { height: 42px; width: 42px; }
+  header .page-shell span { font-size: 1rem; }
+  #mobile-navigation { padding: 0; }
+}
+
+/* Bottom tab bar clearance on phones/tablets (see AppHeader). Office task
+   panes hide the tab bar, so they are excluded here too. */
+@media (max-width: 1023px) {
+  body:not(.office-pane) > div > footer {
+    margin-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Comfortable touch targets on phones/tablets. */
+@media (pointer: coarse) {
+  .button-ghost, .button-secondary, .button-primary {
+    min-height: 44px;
+  }
+  .form-control {
+    min-height: 44px;
+  }
+}
+
+/* Office task pane: remove website chrome and start directly at the workflow. */
+.office-pane > div > header,
+.office-pane > div > footer,
+.office-pane #mobile-navigation {
+  display: none;
+}
+.office-pane #main-content {
+  padding-top: 0;
+}
+.office-pane .page-shell.space-y-5 {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}

@@ -5,6 +5,9 @@ import { deliverReports } from "@/utils/reportOutbox";
 
 export function FeedbackDelivery() {
   useEffect(() => {
+    // Keep Word's task pane deterministic; background report delivery can
+    // compete with Office's embedded document lifecycle.
+    if (window.Office) return;
     let active = false;
     const send = () => {
       if (active || document.visibilityState === "hidden") return;

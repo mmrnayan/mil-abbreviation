@@ -12,6 +12,6 @@
   <AppDomains><AppDomain>https://mil-abbreviation.vercel.app</AppDomain></AppDomains>
   <Hosts><Host Name="Document"/></Hosts>
   <Requirements><Sets DefaultMinVersion="1.3"><Set Name="WordApi" MinVersion="1.3"/></Sets></Requirements>
-  <DefaultSettings><SourceLocation DefaultValue="https://mil-abbreviation.vercel.app/"/></DefaultSettings>
+  <DefaultSettings><SourceLocation DefaultValue="https://mil-abbreviation.vercel.app/office"/></DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>

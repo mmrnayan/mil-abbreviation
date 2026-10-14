@@ -14,6 +14,8 @@ import {
   ListChecks,
   Sparkles,
   Upload,
+  FileInput,
+  Send,
 } from "lucide-react";
 import { AmbiguityReview } from "./AmbiguityReview";
 import { DatasetStatusPanel } from "./DatasetStatusPanel";
@@ -42,6 +44,7 @@ import { useLearningProfile } from "@/hooks/useLearningProfile";
 import { usePersistentState } from "@/hooks/usePersistentState";
 import { useDataset } from "@/providers/DatasetProvider";
 import { downloadTextAsDocx } from "@/utils/exporters";
+import { isOfficeHost, readWordSelection, replaceWordSelection } from "@/utils/office";
 
 const PREFERENCE_KEY = "sac:converter-preferences:v1";
 const DIRECTION_KEY = "sac:converter-direction:v1";
@@ -108,7 +111,10 @@ export function ConverterPanel() {
   const { convert, isReady } = useConverter(dataset, datasetState.overlay);
   const learning = useLearningProfile();
   const [inputSelection, setInputSelection] = useState<{ start: number; end: number }>();
+  const [officeHost, setOfficeHost] = useState(false);
   const datasetVersion = datasetState.version;
+
+  useEffect(() => setOfficeHost(isOfficeHost()), []);
 
   // The context a learned preference belongs to: the abbreviation plus the
   // service, writing context and direction active during the decision.
@@ -230,6 +236,26 @@ export function ConverterPanel() {
     }
   }
 
+  async function loadWordSelection() {
+    try {
+      const text = await readWordSelection();
+      setInput(text);
+      setAnnouncement("Selected Word text loaded into the converter.");
+    } catch (conversionError) {
+      setError(conversionError instanceof Error ? conversionError.message : "Word selection could not be read.");
+    }
+  }
+
+  async function insertIntoWord() {
+    if (!result) return;
+    try {
+      await replaceWordSelection(result.convertedText);
+      setAnnouncement("Converted text inserted into Word.");
+    } catch (conversionError) {
+      setError(conversionError instanceof Error ? conversionError.message : "Converted text could not be inserted into Word.");
+    }
+  }
+
   async function loadTextFile(file?: File) {
     if (!file) return;
     const name = file.name.toLocaleLowerCase("en");
@@ -344,6 +370,7 @@ export function ConverterPanel() {
                 <h2 className="mt-0.5 font-bold">{inputTitle}</h2>
               </div>
               <div className="flex flex-wrap items-center justify-end gap-1">
+                {officeHost && <button type="button" className="button-primary !px-3 !py-2" onClick={() => void loadWordSelection()}><FileInput className="h-4 w-4" /> <span>Read Word selection</span></button>}
                 <button type="button" className="button-ghost" onClick={() => void pasteText()}><ClipboardPaste className="h-4 w-4" /> <span className="hidden sm:inline">Paste</span></button>
                 <button type="button" className="button-ghost" onClick={() => { setInput(""); setResult(undefined); }}><Eraser className="h-4 w-4" /> <span className="hidden sm:inline">Clear</span></button>
                 <button type="button" className="button-ghost" onClick={() => { setInput(direction === "full-to-abbreviation" ? FORWARD_SAMPLE : REVERSE_SAMPLE); setResult(undefined); }}><Sparkles className="h-4 w-4" /> <span className="hidden sm:inline">Sample</span></button>
@@ -386,6 +413,7 @@ export function ConverterPanel() {
                 <h2 className="mt-0.5 font-bold">{outputTitle}</h2>
               </div>
               <div className="flex flex-wrap items-center justify-end gap-1">
+                {officeHost && <button type="button" className="button-primary !px-3 !py-2" disabled={!result} onClick={() => void insertIntoWord()}><Send className="h-4 w-4" /> <span>Replace in Word</span></button>}
                 <span className="text-xs text-slate-500">Select text to report it</span>
                 <button type="button" className="button-ghost" disabled={!result} onClick={() => void copyOutput()}><Copy className="h-4 w-4" /> <span className="hidden sm:inline">Copy</span></button>
                 <button type="button" className="button-ghost" disabled={!result} onClick={() => result && void downloadTextAsDocx(result.convertedText, "service-abbreviation-conversion.docx")}><FileDown className="h-4 w-4" /> <span className="hidden sm:inline">.docx</span></button>

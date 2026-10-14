@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Service Abbreviation Converter",
+  "short_name": "Abbreviation Converter",
+  "version": "1.0.0",
+  "description": "Convert Bangladesh service-writing text using authorized abbreviations.",
+  "icons": {
+    "128": "icon-192.png",
+    "192": "icon-192.png",
+    "512": "icon-512.png"
+  },
+  "action": {
+    "default_title": "Open Service Abbreviation Converter"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab"]
+}
