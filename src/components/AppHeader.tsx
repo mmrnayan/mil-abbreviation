@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Moon, Sun, Settings } from "lucide-react";
+import { BookOpen, Moon, Repeat, Settings, Sun } from "lucide-react";
 
 const navigation = [
   { href: "/", label: "Converter" },
@@ -93,7 +93,6 @@ export function AppHeader() {
           </div>
 
           <div className="flex items-center gap-1 lg:hidden">
-            <Link href="/about" className="rounded-lg p-2.5 hover:bg-white/10" aria-label="Settings"><Settings className="h-5 w-5" /></Link>
             <button
               type="button"
               onClick={toggleTheme}
@@ -104,27 +103,38 @@ export function AppHeader() {
             </button>
           </div>
         </div>
-
-          <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-t border-white/10 px-4 py-3 lg:hidden">
-            <div className="mx-auto grid max-w-xl grid-cols-2 gap-2">
-              {navigation.map((item) => {
-                const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`rounded-lg px-3 py-2.5 text-center text-sm font-semibold ${
-                      active ? "bg-gold-300 text-forest-950" : "bg-white/5 text-white hover:bg-white/10"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-          </nav>
       </header>
+
+      {/* Mobile bottom tab bar (native-app style navigation). */}
+      <nav
+        id="mobile-navigation"
+        aria-label="Mobile navigation"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-forest-900 pb-[env(safe-area-inset-bottom)] lg:hidden dark:bg-forest-950"
+      >
+        <div className="mx-auto grid max-w-md grid-cols-3">
+          {[
+            { href: "/", label: "Converter", icon: Repeat },
+            { href: "/dictionary", label: "Dictionary", icon: BookOpen },
+            { href: "/about", label: "Settings", icon: Settings },
+          ].map((item) => {
+            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 px-2 py-2 text-[11px] font-semibold ${
+                  active ? "text-gold-300" : "text-forest-50/70"
+                }`}
+              >
+                <Icon className="h-5 w-5" aria-hidden="true" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </>
   );
 }

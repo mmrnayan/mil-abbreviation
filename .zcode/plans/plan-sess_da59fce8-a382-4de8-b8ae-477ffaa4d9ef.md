@@ -1,28 +1,24 @@
-Content-focused redesign — strip briefing/marketing text so the converter and dictionary data are the visual focus.
+Mobile UI/UX redesign (shared web UI, applies to Android + iOS Capacitor apps) with bottom tab navigation, then browser preview + Android APK build/run.
 
-## Main converter page (`src/components/ConverterPanel.tsx`)
-- **Delete the hero band entirely** (h1 "Write clearly. Abbreviate with confidence.", the JSSDM 2022 attribution paragraph, and the three stats chips "N entries / Local only / Worker accelerated"). The converter workspace becomes the first thing on screen.
-- Keep an `sr-only` h1 ("Abbreviation Converter") for accessibility/SEO — invisible, screen-reader only.
-- **Delete the privacy aside** ("Conversion runs locally… Text is sent to the app owner only…" and "Converts and saves to history automatically · Ctrl/⌘ + Enter saves instantly"). Keep a subtle `kbd`-style "Ctrl/⌘ ↵" hint at the bottom of the input textarea so the shortcut stays discoverable without the sentence.
-- Keep functional micro-copy: "Select text to report it" on output header, warning/unresolved sections, details table.
-- Condense FilterBar's three multi-sentence hints (`src/components/FilterBar.tsx`) to one short line each (e.g. "Paragraph heading", "Signature block", "Personnel line").
-- History block: drop the "Browser-local record" eyebrow and its explanatory sentence; keep just "Recent conversions" + the record count.
+## 1. Bottom tab bar (mobile navigation)
+- Rework `AppHeader.tsx`: remove the current `#mobile-navigation` 2-column grid (lines ~108–125); on screens below `lg`, render a fixed bottom tab bar with three items — Converter (`/`), Dictionary (`/dictionary`), Settings (`/about`) — each an icon + label, active state highlighted (gold on forest), ~56px tall with `pb-[env(safe-area-inset-bottom)]` for iPhone home indicator.
+- Add `main` bottom padding on mobile (`pb-20 lg:pb-0`, via layout or globals.css) so content isn't hidden behind the bar; hide the redundant header Settings/theme icon-row on mobile where the tab bar covers it (keep theme toggle accessible in Settings page).
+- Icons from lucide (`ArrowLeftRight`/`Repeat`, `BookOpen`, `Settings`); ensure ≥44px touch targets.
 
-## Dictionary page (`src/components/DictionaryTable.tsx`)
-- Replace the hero (eyebrow "Authoritative reference", h1 + description paragraph, stats chips) with a compact single-row header: small "Dictionary" heading + "{n} records · {n} verify" on one line, with search input and filters immediately below — the table becomes the focus.
-- Keep the results count, sort note, and empty state as-is (functional).
+## 2. Native Capacitor polish
+- **Status bar**: add `@capacitor/status-bar` to `platforms/capacitor-mobile/package.json`; style it to match the header (dark forest background, light text) on app start in `AboutContent`-like bootstrap (`Capacitor.isNativePlatform()` guard, try/catch so web is unaffected).
+- **Android back button**: register `App.addListener("backButton")` (in `FeedbackDelivery` bootstrap or a small `NativeBridge` client component) — closes the ambiguity modal if open, otherwise navigates back to `/` (exit only from `/` is left to default behavior).
+- **Safe areas**: extend existing `env(safe-area-inset-*)` handling so the sticky header clears the iOS notch and the footer clears the home indicator in the native webview.
 
-## Footer (`src/components/AppFooter.tsx`)
-- Reduce to one minimal row: version (`v1.3.0`) + Settings link. Remove the "Conversion runs locally…" sentence and the JSSDM attribution line.
+## 3. Mobile layout polish (ConverterPanel + globals.css)
+- Ensure toolbar icon buttons are ≥44px tap area on touch; compact the DirectionSelector on small screens.
+- Keep the existing `max-width: 520px` media block; adjust footer padding so the bottom tab bar never overlaps content; verify dark mode contrast.
 
-## Settings page (`src/components/AboutContent.tsx`)
-- Trim each section's explanation to one short sentence; delete the closing "Based on JSSDM 2022… No app login is required." paragraph. Keep controls and statuses.
+## 4. Verification & run
+1. `npm run lint` + `npm test` (276 tests) + consumer build.
+2. **Browser preview**: serve `out/` via the existing static server (`scripts/static-server.mjs`) and check the phone-width layout (390px) — header, tabs, converter, dictionary, settings — with the browser-use skill screenshots.
+3. **Android**: `npm run build:consumer` → `npm run package:mobile` (needs no BASE_PATH — native bundles at root; confirm script behavior) → `scripts/build-android.ps1` debug APK. Check `adb devices`; if a device/emulator is present, install the APK and launch it.
+4. Commit and push (web deploys update automatically; iOS project picks up changes on next Mac build).
 
-## Header (`src/components/AppHeader.tsx`)
-- Remove the "Dataset verified" pill (xl-only); header stays logo + title + nav.
-
-## Not touched
-- Owner-only screens (diagnostics, rules, review) — not part of the consumer experience; sr-only accessibility strings; all conversion logic.
-
-## Verification
-- `npm run lint`, `npm test` (276 tests), local consumer build with BASE_PATH, then commit and push (Vercel + GitHub Pages redeploy automatically).
+## Notes
+- iOS itself can't be compiled/run on this Windows machine — the UI changes apply to it automatically since it's the same web bundle; final iOS build still requires a Mac + Xcode per `platforms/README.md`.
