@@ -208,7 +208,7 @@ export function FilterBar({ sections, values, defaults, storageKey, onChange }: 
               })}
             </div>
 
-            <div className="flex justify-end gap-2 border-t p-3 dark:border-white/10">
+            <div className="flex justify-end gap-2 border-t px-3 pt-3 pb-[max(env(safe-area-inset-bottom,0px),12px)] dark:border-white/10">
               <button type="button" className="button-ghost !min-h-11" onClick={reset}>Reset</button>
               <button type="button" className="button-primary !min-h-11" onClick={apply}>Apply</button>
             </div>

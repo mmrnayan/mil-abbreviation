@@ -55,9 +55,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             Next.js router on the website and in the Android/iOS webviews. */}
         <OfficePaneMode />
         <DatasetProvider>
-          <div className="flex min-h-screen flex-col">
+          <div className="app-shell flex flex-col">
             <AppHeader />
-            <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>
+            <main id="main-content" className="flex-1">{children}</main>
           </div>
           <PwaRegister />
           <NativeAppShell />

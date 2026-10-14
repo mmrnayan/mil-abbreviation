@@ -109,7 +109,7 @@ export function AppHeader() {
       <nav
         id="mobile-navigation"
         aria-label="Mobile navigation"
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-forest-900 pb-[env(safe-area-inset-bottom)] lg:hidden dark:bg-forest-950"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-forest-900 pb-[max(env(safe-area-inset-bottom,0px),12px)] lg:hidden dark:bg-forest-950"
       >
         <div className="mx-auto grid max-w-md grid-cols-3">
           {[

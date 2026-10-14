@@ -22,14 +22,39 @@
 
 * { border-color: rgb(var(--line)); }
 html { scroll-behavior: smooth; }
+/* Bottom navigation metrics: defined once so the nav, content clearance and
+   fixed overlays stay in sync. The 12px minimum covers Android 3-button
+   navigation where the WebView reports the bottom inset as 0. */
+:root {
+  --nav-height: 56px;
+  --safe-bottom: max(env(safe-area-inset-bottom, 0px), 12px);
+}
+@media (min-width: 1024px) {
+  :root { --safe-bottom: 0px; } /* Bottom nav is desktop-hidden. */
+}
 body {
   padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   background: rgb(var(--surface-muted));
   color: rgb(var(--ink));
   font-feature-settings: "kern" 1, "liga" 1;
 }
+/* App shell height with a 100vh fallback for older browsers. */
+.app-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+/* Scrollable content clearance: never let the last item hide behind the nav. */
+main#main-content {
+  padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
+}
+@media (min-width: 1024px) {
+  main#main-content { padding-bottom: 0; }
+}
+/* Office task panes hide the nav, so no clearance is needed there. */
+body.office-pane main#main-content { padding-bottom: 0; }
 ::selection { background: #d7b97d; color: #142f27; }
 
 @layer base {
@@ -122,14 +147,6 @@ body {
   header .page-shell img { height: 42px; width: 42px; }
   header .page-shell span { font-size: 1rem; }
   #mobile-navigation { padding: 0; }
-}
-
-/* Bottom tab bar clearance on phones/tablets (see AppHeader). Office task
-   panes hide the tab bar, so they are excluded here too. */
-@media (max-width: 1023px) {
-  body:not(.office-pane) > div > footer {
-    margin-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
-  }
 }
 
 /* Comfortable touch targets on phones/tablets. */
