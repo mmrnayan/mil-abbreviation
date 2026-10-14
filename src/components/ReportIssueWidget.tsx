@@ -74,7 +74,7 @@ export function ReportIssueWidget({ conversion, label }: { conversion?: Conversi
   }
 
   return <>
-    <button type="button" onClick={showReport} className={conversion ? "button-ghost min-h-11" : "fixed bottom-5 right-5 z-[90] inline-flex items-center gap-2 rounded-full bg-gold-400 px-4 py-3 text-sm font-bold text-forest-950 shadow-lg hover:bg-gold-300"} aria-haspopup="dialog" aria-expanded={open}><Flag className="h-4 w-4" /> {label ?? (conversion ? "Report this" : "Report an issue")}</button>
+    <button type="button" onClick={showReport} className={conversion ? "button-ghost min-h-11" : "fixed right-5 bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] z-[90] inline-flex items-center gap-2 rounded-full bg-gold-400 px-4 py-3 text-sm font-bold text-forest-950 shadow-lg hover:bg-gold-300 lg:bottom-5"} aria-haspopup="dialog" aria-expanded={open}><Flag className="h-4 w-4" /> {label ?? (conversion ? "Report this" : "Report an issue")}</button>
     {open && <div className="fixed inset-0 z-[100] flex items-center justify-center bg-forest-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby={headingId}>
       <div ref={dialogRef} className="max-h-[90dvh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl dark:bg-[#14251f]">
         <div className="flex justify-between gap-3"><h2 id={headingId} className="text-xl font-bold">{seed ? "Report this word or phrase" : "Report an issue"}</h2><button type="button" disabled={saving} className="button-ghost" onClick={() => setOpen(false)} aria-label="Close report"><X className="h-5 w-5" /></button></div>
@@ -89,6 +89,6 @@ export function ReportIssueWidget({ conversion, label }: { conversion?: Conversi
         </div>
       </div>
     </div>}
-    {toast && <div className="fixed bottom-5 left-1/2 z-[110] w-[90%] max-w-xl -translate-x-1/2 rounded-xl bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-xl" role="status">{toast}</div>}
+    {toast && <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] left-1/2 z-[110] w-[90%] max-w-xl -translate-x-1/2 rounded-xl bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-xl lg:bottom-5" role="status">{toast}</div>}
   </>;
 }

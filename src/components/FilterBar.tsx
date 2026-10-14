@@ -1,6 +1,7 @@
 "use client";
 
-import { AlertTriangle, SlidersHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AlertTriangle, ChevronDown, SlidersHorizontal } from "lucide-react";
 import type { AnnexDefinition, ConversionFilters, ServiceId, WritingContext } from "@/engine/types";
 
 interface FilterBarProps {
@@ -40,14 +41,27 @@ const contexts: Array<{ value: WritingContext; label: string }> = [
 ];
 
 export function FilterBar({ filters, annexes, onChange }: FilterBarProps) {
+  // Collapsed by default on phones so the converter leads; desktop stays expanded.
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (window.matchMedia("(min-width: 768px)").matches) setOpen(true);
+  }, []);
   return (
     <section className="surface-card p-4 sm:p-5" aria-labelledby="filter-heading">
       <div className="mb-4 flex items-center gap-2">
         <SlidersHorizontal className="h-4 w-4 text-forest-700 dark:text-gold-300" aria-hidden="true" />
         <h2 id="filter-heading" className="text-sm font-bold">Conversion scope</h2>
         <span className="text-xs text-slate-500 dark:text-stone-400">Optional filters</span>
+        <button
+          type="button"
+          className="ml-auto flex min-h-11 items-center gap-1 rounded-lg px-2 text-xs font-semibold text-forest-700 hover:bg-forest-50 md:hidden dark:text-gold-300 dark:hover:bg-white/10"
+          aria-expanded={open}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? "Hide" : "Show"} <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+        </button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className={`grid gap-4 md:grid-cols-3 ${open ? "grid" : "hidden md:grid"}`}>
         <label>
           <span className="form-label">Service</span>
           <select
@@ -82,6 +96,7 @@ export function FilterBar({ filters, annexes, onChange }: FilterBarProps) {
           </select>
         </label>
       </div>
+      <div className={open ? "" : "hidden md:block"}>
       {["civilian-external-correspondence", "allied-forces-correspondence", "foreign-correspondence"].includes(filters.context) && (
         <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-950 dark:border-amber-700/60 dark:bg-amber-950/30 dark:text-amber-100" role="status">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
@@ -92,6 +107,7 @@ export function FilterBar({ filters, annexes, onChange }: FilterBarProps) {
       {["formal-letter", "demi-official-letter", "commanded-letter", "service-paper"].includes(filters.context) && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Only decorations, qualifications and arms/services are abbreviated.</p>}
       {filters.context === "personnel-line" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Rank, name, decorations and qualifications.</p>}
       {filters.context === "air-force-operational-paper" && filters.service !== "air-force" && <p className="mt-3 text-sm text-slate-600 dark:text-stone-300">Select Air Force to apply this exception.</p>}
+      </div>
     </section>
   );
 }
