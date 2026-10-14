@@ -21,7 +21,8 @@ export function DictionaryTable() {
   const { status, dataset } = useDataset();
   const [query, setQuery] = useState("");
   const [service, setService] = useState("all");
-  const [annex, setAnnex] = useState("all");
+  // Annex filter removed from the UI; results always span all annexes.
+  const [annex] = useState("all");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState<"full-form" | "abbreviation">("full-form");
   const [page, setPage] = useState(1);
@@ -67,7 +68,6 @@ export function DictionaryTable() {
   function reset() {
     setQuery("");
     setService("all");
-    setAnnex("all");
     setCategory("all");
     setSort("full-form");
   }
@@ -86,7 +86,6 @@ export function DictionaryTable() {
           </label>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <label><span className="form-label">Service</span><select className="form-control" value={service} onChange={(event) => setService(event.target.value)}><option value="all">All Services</option><option value="tri-service">Tri-Service</option><option value="army">Army</option><option value="navy">Navy</option><option value="air-force">Air Force</option><option value="other">Other</option></select></label>
-            <label><span className="form-label">Annex</span><select className="form-control" value={annex} onChange={(event) => setAnnex(event.target.value)}><option value="all">All Annexes</option>{dataset.annexes.map((item) => <option key={item.id} value={item.id}>Annex {item.id} — {item.title}</option>)}</select></label>
             <label><span className="form-label">Category</span><select className="form-control" value={category} onChange={(event) => setCategory(event.target.value)}><option value="all">All Categories</option>{categories.map((item) => <option key={item} value={item}>{item.replaceAll("_", " ")}</option>)}</select></label>
             <label><span className="form-label">Alphabetical sort</span><select className="form-control" value={sort} onChange={(event) => setSort(event.target.value as typeof sort)}><option value="full-form">Full form A–Z</option><option value="abbreviation">Abbreviation A–Z</option></select></label>
           </div>

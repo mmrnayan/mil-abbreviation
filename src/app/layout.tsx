@@ -5,7 +5,6 @@ import { AppHeader } from "@/components/AppHeader";
 import { AppFooter } from "@/components/AppFooter";
 import { PwaRegister } from "@/components/PwaRegister";
 import { NativeAppShell } from "@/components/NativeAppShell";
-import { ReportIssueWidget } from "@/components/ReportIssueWidget";
 import { DatasetProvider } from "@/providers/DatasetProvider";
 import { FeedbackDelivery } from "@/components/FeedbackDelivery";
 import { OfficePaneMode } from "@/components/OfficePaneMode";
@@ -66,7 +65,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <NativeAppShell />
           <SpeedInsights />
           <FeedbackDelivery />
-          <ReportIssueWidget />
         </DatasetProvider>
       </body>
     </html>

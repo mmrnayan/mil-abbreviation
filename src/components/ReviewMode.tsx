@@ -524,7 +524,7 @@ export function ReviewMode() {
 
       <div className="page-shell space-y-8 py-8">
         {reportedContext && <aside role="status" className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-900 dark:bg-blue-950/25">Report loaded with its original conversion scope. Dataset at reporting: {reportedContext.datasetVersion ?? "unknown"}. Current dataset: {dataset.schema_version} · {dataset.generated_on}.{reportedContext.note && <p className="mt-2">Reporter note: {reportedContext.note}</p>}</aside>}
-        <FilterBar filters={filters} annexes={dataset.annexes} onChange={setFilters} />
+        <FilterBar filters={filters} onChange={setFilters} />
         {/* Step 1 — sentence under review */}
         <section className="surface-card p-6">
           <div className="flex flex-wrap items-end justify-between gap-4">

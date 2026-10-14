@@ -354,7 +354,7 @@ export function ConverterPanel() {
       <h1 className="sr-only">Abbreviation Converter</h1>
 
       <div className="page-shell space-y-5 py-6 sm:py-8">
-        <FilterBar filters={filters} annexes={dataset.annexes} onChange={setFilters} />
+        <FilterBar filters={filters} onChange={setFilters} />
         {error && (
           <div role="alert" className="flex items-start gap-2 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-900 dark:border-red-800 dark:bg-red-950/30 dark:text-red-100">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /> {error}
