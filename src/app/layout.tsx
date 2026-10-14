@@ -8,7 +8,6 @@ import { NativeAppShell } from "@/components/NativeAppShell";
 import { ReportIssueWidget } from "@/components/ReportIssueWidget";
 import { DatasetProvider } from "@/providers/DatasetProvider";
 import { FeedbackDelivery } from "@/components/FeedbackDelivery";
-import Script from "next/script";
 import { OfficePaneMode } from "@/components/OfficePaneMode";
 
 // Deployment base path (set by the consumer build for subpath hosting such as GitHub Pages project sites).
@@ -53,7 +52,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
-        <Script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" strategy="beforeInteractive" />
+        {/* office.js loads only on /office (see that page): outside Word it
+            replaces window.history methods with non-functions and crashes the
+            Next.js router on the website and in the Android/iOS webviews. */}
         <OfficePaneMode />
         <DatasetProvider>
           <div className="flex min-h-screen flex-col">
