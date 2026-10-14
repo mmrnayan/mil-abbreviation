@@ -4,8 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
   ArrowDownAZ,
+  Check,
   ChevronLeft,
   ChevronRight,
+  Copy,
   RotateCcw,
   Search,
 } from "lucide-react";
@@ -111,7 +113,7 @@ export function DictionaryTable() {
 
         {visible.length ? (
           <div className="mt-4 grid gap-4 xl:grid-cols-2">
-            {visible.map((entry) => <DictionaryEntryCard entry={entry} key={entry.id} />)}
+            {visible.map((entry) => <DictionaryEntryCard entry={entry} key={entry.id} query={query} />)}
           </div>
         ) : (
           <div className="surface-card mt-4 py-16 text-center"><Search className="mx-auto h-8 w-8 text-slate-300 dark:text-stone-600" /><h2 className="mt-3 font-bold">No matching records</h2><p className="mt-1 text-sm text-slate-500 dark:text-stone-400">Try a broader search or reset one of the filters.</p></div>
@@ -127,22 +129,67 @@ export function DictionaryTable() {
   );
 }
 
-function DictionaryEntryCard({ entry }: { entry: AbbreviationEntry }) {
-  const dataset = useDataset();
-  const result: ConversionResult = { originalText: entry.full_form, convertedText: entry.abbreviation, direction: "full-to-abbreviation", appliedFilters: { service: entry.service, annex: entry.annex, context: "internal-service-writing" }, ambiguities: [], unresolved: [], warnings: [], replacements: [{ entryId: entry.id, sourceText: entry.full_form, replacementText: entry.abbreviation, matchedVariant: entry.full_form, startIndex: 0, endIndex: entry.full_form.length, outputStartIndex: 0, outputEndIndex: entry.abbreviation.length, service: entry.service, annex: entry.annex, category: entry.category, confidence: entry.quality.confidence, rule: "exact-authorized", resolution: "automatic" }] };
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+}
+
+/** Highlights the active search term inside card text. */
+function Highlight({ text, query }: { text: string; query: string }) {
+  const needle = query.trim();
+  if (!needle) return <>{text}</>;
+  const parts = text.split(new RegExp(`(${escapeRegExp(needle)})`, "giu"));
   return (
-    <article className="surface-card overflow-hidden">
-      <div className="flex items-start justify-between gap-4 p-5">
-        <div className="min-w-0">
-          <p className="break-words font-display text-2xl font-bold leading-8 text-forest-800 dark:text-gold-300">{entry.full_form}</p>
-          <p className="mt-1 text-xl font-semibold text-slate-600 dark:text-stone-300">{entry.abbreviation}</p>
+    <>
+      {parts.map((part, index) =>
+        part.toLowerCase() === needle.toLowerCase()
+          ? <mark key={index} className="rounded-sm bg-gold-300/50 text-inherit dark:bg-gold-300/30">{part}</mark>
+          : <span key={index}>{part}</span>,
+      )}
+    </>
+  );
+}
+
+function DictionaryEntryCard({ entry, query }: { entry: AbbreviationEntry; query: string }) {
+  const dataset = useDataset();
+  const [copied, setCopied] = useState(false);
+  const result: ConversionResult = { originalText: entry.full_form, convertedText: entry.abbreviation, direction: "full-to-abbreviation", appliedFilters: { service: entry.service, annex: entry.annex, context: "internal-service-writing" }, ambiguities: [], unresolved: [], warnings: [], replacements: [{ entryId: entry.id, sourceText: entry.full_form, replacementText: entry.abbreviation, matchedVariant: entry.full_form, startIndex: 0, endIndex: entry.full_form.length, outputStartIndex: 0, outputEndIndex: entry.abbreviation.length, service: entry.service, annex: entry.annex, category: entry.category, confidence: entry.quality.confidence, rule: "exact-authorized", resolution: "automatic" }] };
+  async function copyAbbreviation() {
+    try {
+      await navigator.clipboard.writeText(entry.abbreviation);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch { /* Clipboard unavailable; the abbreviation is still visible for manual copy. */ }
+  }
+  return (
+    <article className="surface-card overflow-hidden p-3">
+      <div className="flex items-start gap-1">
+        <div className="min-w-0 flex-1">
+          <p className="line-clamp-2 break-words font-display text-base font-bold leading-6 text-forest-800 dark:text-gold-300">
+            <Highlight text={entry.full_form} query={query} />
+          </p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            <span className="inline-block max-w-full truncate rounded-md bg-forest-100 px-2 py-0.5 font-mono text-sm font-bold text-forest-900 dark:bg-gold-300/15 dark:text-gold-200">
+              <Highlight text={entry.abbreviation} query={query} />
+            </span>
+            {copied && <span role="status" className="text-xs font-semibold text-forest-700 dark:text-gold-300">Copied</span>}
+            {entry.ambiguous && <span className="status-pill border-amber-200 bg-amber-50 !px-2 !py-0.5 text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200"><AlertCircle className="h-3 w-3" /> Ambiguous</span>}
+            {entry.quality.confidence === "medium" && <span className="status-pill border-blue-200 bg-blue-50 !px-2 !py-0.5 text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">Verify source</span>}
+          </div>
+          {(entry.service || entry.category) && (
+            <p className="mt-1.5 flex gap-1.5 truncate text-[11px] font-medium capitalize text-slate-500 dark:text-stone-400">
+              {entry.service && <span className="truncate">{entry.service.replaceAll("-", " ")}</span>}
+              {entry.service && entry.category && <span aria-hidden="true">·</span>}
+              {entry.category && <span className="truncate">{entry.category.replaceAll("_", " ")}</span>}
+            </p>
+          )}
         </div>
-        <div className="flex shrink-0 flex-col items-end gap-1.5">
-          {entry.ambiguous && <span className="status-pill border-amber-200 bg-amber-50 !px-2 !py-0.5 text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200"><AlertCircle className="h-3 w-3" /> Ambiguous</span>}
-          {entry.quality.confidence === "medium" && <span className="status-pill border-blue-200 bg-blue-50 !px-2 !py-0.5 text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">Verify source</span>}
+        <div className="flex shrink-0 items-center">
+          <button type="button" onClick={() => void copyAbbreviation()} aria-label={`Copy abbreviation ${entry.abbreviation}`} className="flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-forest-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-forest-100 dark:text-stone-400 dark:hover:bg-white/10 dark:active:bg-white/20">
+            {copied ? <Check className="h-4 w-4 text-forest-700 dark:text-gold-300" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
+          </button>
+          <ReportIssueWidget iconOnly conversion={{ result, datasetVersion: dataset.version, selection: mapSelection(result, { start: 0, end: entry.full_form.length }, "source") }} />
         </div>
       </div>
-      <div className="border-t px-5 dark:border-white/10"><ReportIssueWidget conversion={{ result, datasetVersion: dataset.version, selection: mapSelection(result, { start: 0, end: entry.full_form.length }, "source") }} /></div>
     </article>
   );
 }

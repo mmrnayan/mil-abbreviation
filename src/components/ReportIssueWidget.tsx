@@ -7,7 +7,7 @@ import { diagnoseReport } from "@/utils/reportDiagnosis";
 import { useDataset } from "@/providers/DatasetProvider";
 
 export const CONTACT_KEY = "sac:report-contact:v1";
-export function ReportIssueWidget({ conversion, label }: { conversion?: ConversionFeedbackSeed; label?: string }) {
+export function ReportIssueWidget({ conversion, label, iconOnly = false }: { conversion?: ConversionFeedbackSeed; label?: string; iconOnly?: boolean }) {
   const dataset = useDataset();
   const [open, setOpen] = useState(false);
   const [seed, setSeed] = useState<ConversionFeedbackSeed>();
@@ -74,7 +74,7 @@ export function ReportIssueWidget({ conversion, label }: { conversion?: Conversi
   }
 
   return <>
-    <button type="button" onClick={showReport} className={conversion ? "button-ghost min-h-11" : "fixed right-5 bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] z-[90] inline-flex items-center gap-2 rounded-full bg-gold-400 px-4 py-3 text-sm font-bold text-forest-950 shadow-lg hover:bg-gold-300 lg:bottom-5"} aria-haspopup="dialog" aria-expanded={open}><Flag className="h-4 w-4" /> {label ?? (conversion ? "Report this" : "Report an issue")}</button>
+    <button type="button" onClick={showReport} className={conversion ? (iconOnly ? "flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-forest-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-forest-100 dark:text-stone-400 dark:hover:bg-white/10 dark:active:bg-white/20" : "button-ghost min-h-11") : "fixed right-5 bottom-[calc(env(safe-area-inset-bottom)+4.75rem)] z-[90] inline-flex items-center gap-2 rounded-full bg-gold-400 px-4 py-3 text-sm font-bold text-forest-950 shadow-lg hover:bg-gold-300 lg:bottom-5"} aria-haspopup="dialog" aria-expanded={open} aria-label={iconOnly ? "Report this entry" : undefined}>{iconOnly ? <Flag className="h-4 w-4" aria-hidden="true" /> : <><Flag className="h-4 w-4" /> {label ?? (conversion ? "Report this" : "Report an issue")}</>}</button>
     {open && <div className="fixed inset-0 z-[100] flex items-center justify-center bg-forest-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby={headingId}>
       <div ref={dialogRef} className="max-h-[90dvh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl dark:bg-[#14251f]">
         <div className="flex justify-between gap-3"><h2 id={headingId} className="text-xl font-bold">{seed ? "Report this word or phrase" : "Report an issue"}</h2><button type="button" disabled={saving} className="button-ghost" onClick={() => setOpen(false)} aria-label="Close report"><X className="h-5 w-5" /></button></div>
