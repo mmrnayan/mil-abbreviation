@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TaskPaneApp">
+  <Id>4d5c0e4b-6c9b-4f15-9b2d-0f4c4a6c5b01</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>JSSDM</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Service Abbreviation Converter"/>
+  <Description DefaultValue="Convert Bangladesh service writing between full forms and authorized abbreviations."/>
+  <IconUrl DefaultValue="https://mil-abbreviation.vercel.app/icons/icon-192.png"/>
+  <HighResolutionIconUrl DefaultValue="https://mil-abbreviation.vercel.app/icons/icon-512.png"/>
+  <SupportUrl DefaultValue="https://mil-abbreviation.vercel.app/about"/>
+  <AppDomains><AppDomain>https://mil-abbreviation.vercel.app</AppDomain></AppDomains>
+  <Hosts><Host Name="Document"/></Hosts>
+  <Requirements><Sets DefaultMinVersion="1.3"><Set Name="WordApi" MinVersion="1.3"/></Sets></Requirements>
+  <DefaultSettings><SourceLocation DefaultValue="https://mil-abbreviation.vercel.app/"/></DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+</OfficeApp>
