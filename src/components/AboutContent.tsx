@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDataset } from "@/providers/DatasetProvider";
 import { PendingReports } from "./PendingReports";
 import { CONTACT_KEY } from "./ReportIssueWidget";
+import { SAFE_BOTTOM_KEY, type SafeBottomMode } from "./SafeBottom";
 import { APP_VERSION } from "@/version";
 import { Capacitor } from "@capacitor/core";
 
@@ -14,6 +15,7 @@ export function AboutContent() {
   const [introduction, setIntroduction] = useState("");
   const [message, setMessage] = useState("");
   const [dark, setDark] = useState(false);
+  const [safeBottom, setSafeBottom] = useState<SafeBottomMode>("auto");
   const [native, setNative] = useState(false);
   useEffect(() => {
     const update = () => setOnline(navigator.onLine);
@@ -21,11 +23,20 @@ export function AboutContent() {
     setDark(document.documentElement.classList.contains("dark"));
     setNative(Capacitor.isNativePlatform() || window.location.protocol === "sac:");
     try { const saved = JSON.parse(localStorage.getItem(CONTACT_KEY) ?? "{}"); setEmail(saved.email ?? ""); setIntroduction(saved.introduction ?? ""); } catch { /* Optional contact details. */ }
+    try { const savedMode = localStorage.getItem(SAFE_BOTTOM_KEY); if (savedMode === "gesture" || savedMode === "buttons" || savedMode === "auto") setSafeBottom(savedMode); } catch { /* Optional spacing preference. */ }
     return () => { window.removeEventListener("online", update); window.removeEventListener("offline", update); };
   }, []);
+  function chooseSafeBottom(mode: SafeBottomMode) {
+    setSafeBottom(mode);
+    try { localStorage.setItem(SAFE_BOTTOM_KEY, mode); } catch { /* Best-effort persistence. */ }
+    window.dispatchEvent(new Event("sac-safe-bottom-change"));
+  }
   return <div className="page-shell space-y-5 py-8">
     <p className="text-sm text-slate-600 dark:text-stone-400">App v{APP_VERSION} · Developed by Maj Mizan</p>
     <section className="surface-card p-5"><h2 className="text-xl font-bold">Appearance</h2><label className="mt-3 flex gap-2"><input type="checkbox" checked={dark} onChange={(e) => { setDark(e.target.checked); document.documentElement.classList.toggle("dark", e.target.checked); localStorage.setItem("sac:theme", e.target.checked ? "dark" : "light"); }} /> Dark appearance</label></section>
+    <section className="surface-card p-5"><h2 className="text-xl font-bold">Bottom navigation spacing</h2><p className="mt-2 text-sm text-slate-600 dark:text-stone-400">Space kept below the bottom bar so system buttons never cover it.</p><div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Bottom navigation spacing">{([["auto", "Auto"], ["gesture", "Gesture navigation"], ["buttons", "3-button navigation"]] as Array<[SafeBottomMode, string]>).map(([mode, label]) => (
+      <button key={mode} type="button" aria-pressed={safeBottom === mode} onClick={() => chooseSafeBottom(mode)} className={`min-h-11 rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${safeBottom === mode ? "border-transparent bg-gold-300 text-forest-950" : "border-forest-200 bg-white text-forest-800 hover:bg-forest-50 dark:border-white/15 dark:bg-white/5 dark:text-forest-100 dark:hover:bg-white/10"}`}>{label}</button>
+    ))}</div></section>
     <section className="surface-card p-5"><h2 className="text-xl font-bold">Offline status and updates</h2>{native && !process.env.NEXT_PUBLIC_SERVICE_ORIGIN && <p className="mt-2 text-sm text-amber-800 dark:text-amber-200">Online delivery is not configured for this build. You can export submitted reports below.</p>}<div className="mt-4 flex flex-wrap gap-2"><button type="button" className="button-secondary" disabled={dataset.updating || !online} onClick={() => void dataset.checkUpdates()}>Check approved updates</button><button type="button" className="button-ghost" disabled={dataset.updating} onClick={() => void dataset.restorePrevious()}>Restore previous dataset</button></div>{dataset.updateMessage && <p className="mt-3 text-sm" role="status">{dataset.updateMessage}</p>}</section>
     <section className="surface-card p-5"><h2 className="text-xl font-bold">Optional contact details</h2><p className="mt-2 text-sm text-slate-600 dark:text-stone-400">Stored on this device only; included in reports you submit.</p><div className="mt-3 grid gap-3 sm:grid-cols-2"><label><span className="form-label">Email</span><input type="email" className="form-control" maxLength={254} value={email} onChange={(e) => setEmail(e.target.value)} /></label><label><span className="form-label">Short introduction — BA number, rank, name</span><input className="form-control" maxLength={200} value={introduction} onChange={(e) => setIntroduction(e.target.value)} /></label></div><div className="mt-3 flex gap-2"><button type="button" className="button-secondary" onClick={() => { try { localStorage.setItem(CONTACT_KEY, JSON.stringify({ email: email.trim(), introduction: introduction.trim() })); setMessage("Details saved on this device."); } catch { setMessage("Could not save details on this device."); } }}>Remember my details</button><button type="button" className="button-ghost" onClick={() => { localStorage.removeItem(CONTACT_KEY); setEmail(""); setIntroduction(""); setMessage("Saved details removed. Already submitted reports are unchanged."); }}>Forget details</button></div>{message && <p role="status" className="mt-3 text-sm">{message}</p>}</section>
     <PendingReports />

@@ -89,6 +89,6 @@ export function ReportIssueWidget({ conversion, label, iconOnly = false }: { con
         </div>
       </div>
     </div>}
-    {toast && <div className="fixed bottom-[calc(max(env(safe-area-inset-bottom,0px),12px)+4.75rem)] left-1/2 z-[110] w-[90%] max-w-xl -translate-x-1/2 rounded-xl bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-xl lg:bottom-5" role="status">{toast}</div>}
+    {toast && <div className="fixed bottom-[calc(var(--nav-height)+var(--safe-bottom)+12px)] left-1/2 z-[110] w-[90%] max-w-xl -translate-x-1/2 rounded-xl bg-forest-800 px-5 py-3 text-sm font-semibold text-white shadow-xl lg:bottom-5" role="status">{toast}</div>}
   </>;
 }

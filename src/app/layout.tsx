@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppHeader } from "@/components/AppHeader";
 import { PwaRegister } from "@/components/PwaRegister";
 import { NativeAppShell } from "@/components/NativeAppShell";
+import { SafeBottom } from "@/components/SafeBottom";
 import { DatasetProvider } from "@/providers/DatasetProvider";
 import { FeedbackDelivery } from "@/components/FeedbackDelivery";
 import { OfficePaneMode } from "@/components/OfficePaneMode";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             replaces window.history methods with non-functions and crashes the
             Next.js router on the website and in the Android/iOS webviews. */}
         <OfficePaneMode />
+        <SafeBottom />
         <DatasetProvider>
           <div className="app-shell flex flex-col">
             <AppHeader />
