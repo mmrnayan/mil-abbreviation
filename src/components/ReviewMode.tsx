@@ -524,7 +524,28 @@ export function ReviewMode() {
 
       <div className="page-shell space-y-8 py-8">
         {reportedContext && <aside role="status" className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-900 dark:bg-blue-950/25">Report loaded with its original conversion scope. Dataset at reporting: {reportedContext.datasetVersion ?? "unknown"}. Current dataset: {dataset.schema_version} · {dataset.generated_on}.{reportedContext.note && <p className="mt-2">Reporter note: {reportedContext.note}</p>}</aside>}
-        <FilterBar filters={filters} onChange={setFilters} />
+        <FilterBar
+          sections={[
+            { id: "service", label: "Service", options: [
+              { value: "all", label: "All Services" }, { value: "tri-service", label: "Tri-Service" }, { value: "army", label: "Army" },
+              { value: "navy", label: "Navy" }, { value: "air-force", label: "Air Force" }, { value: "other", label: "Other" },
+            ] },
+            { id: "context", label: "Writing type", searchable: true, options: [
+              { value: "internal-service-writing", label: "Internal Service Writing" }, { value: "signal-message", label: "Signal Message" },
+              { value: "civilian-external-correspondence", label: "Civilian/External Correspondence" }, { value: "military-qualification", label: "Military Qualification" },
+              { value: "national-force-designation", label: "National Force Designation" }, { value: "operational-writing", label: "Operational Writing" },
+              { value: "operational-heading", label: "Operational Order Paragraph Heading" }, { value: "formal-letter", label: "Formal Letter" },
+              { value: "demi-official-letter", label: "Demi-official Letter" }, { value: "commanded-letter", label: "Commanded Letter" },
+              { value: "service-paper", label: "Service Paper" }, { value: "air-force-operational-paper", label: "BAF Service Paper on Operational Matters" },
+              { value: "allied-forces-correspondence", label: "Correspondence with Allied Forces" }, { value: "foreign-correspondence", label: "Correspondence with Foreign Organizations" },
+              { value: "paramilitary-operational-writing", label: "Operational Writing to Para-military Forces" }, { value: "departmental-title", label: "Departmental or Business Title" },
+              { value: "personnel-line", label: "Personnel Name and Qualifications" }, { value: "address-box", label: "Correspondence Address Box" },
+            ] },
+          ]}
+          values={{ service: filters.service, context: filters.context }}
+          defaults={{ service: "all", context: "internal-service-writing" }}
+          onChange={(values) => setFilters((current) => ({ ...current, service: values.service as Required<ConversionFilters>["service"], context: values.context as Required<ConversionFilters>["context"] }))}
+        />
         {/* Step 1 — sentence under review */}
         <section className="surface-card p-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
